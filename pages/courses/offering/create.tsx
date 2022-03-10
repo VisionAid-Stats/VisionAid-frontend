@@ -1,7 +1,10 @@
 import React, { useState } from "react";
-import styled from "@emotion/styled";
-import { Navbar } from "../../../components/Navbar";
 import type { NextPage } from "next";
+import { Formik, Form, Field } from "formik";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+
+import styled from "@emotion/styled";
 import {
   Container,
   Heading,
@@ -15,9 +18,8 @@ import {
   Spacer,
   Select,
 } from "@chakra-ui/react";
-import { Formik, Form, Field } from "formik";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+
+import { Navbar, BasicInput } from "../../../components";
 
 const Root = styled.div`
   height: 100vh;
@@ -63,16 +65,7 @@ const Students: NextPage = () => {
             {({ setFieldValue }) => (
               <Form>
                 <VStack spacing={10} align="flex-start">
-                  <Box>
-                    <Field name="course_id">
-                      {({ field }) => (
-                        <FormControl isRequired>
-                          <FormLabel htmlFor="course_id">Course ID</FormLabel>
-                          <Input id="course_id" {...field} />
-                        </FormControl>
-                      )}
-                    </Field>
-                  </Box>
+                  <BasicInput id="course_id" label="Course ID" isRequired />
 
                   <Box>
                     <Field name="pm_user_id">
