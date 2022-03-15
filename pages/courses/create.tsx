@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import type { NextPage } from "next";
-import { Formik, Form } from "formik";
+import { Formik, Form, Field } from "formik";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -16,17 +16,13 @@ import {
   Box,
   VStack,
   Spacer,
-  NumberInput,
-  NumberInputStepper,
-  NumberIncrementStepper,
-  NumberInputField,
-  NumberDecrementStepper,
+  Select,
   Alert,
   AlertIcon,
   CloseButton,
 } from "@chakra-ui/react";
 
-import { Navbar, BasicInput, SelectInput } from "../../../components";
+import { Navbar, BasicInput, SelectInput } from "../../components";
 
 const Root = styled.div`
   height: 100vh;
@@ -41,7 +37,6 @@ const DateSelectorWrapper = styled.div`
 const Students: NextPage = () => {
   const [showAlert, setShowAlert] = useState(false);
   const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
 
   return (
     <Root>
@@ -51,7 +46,7 @@ const Students: NextPage = () => {
           {showAlert && (
             <Alert status="success" variant="subtle">
               <AlertIcon />
-              Course offering successfully created
+              Course successfully created
               <CloseButton
                 position="absolute"
                 right="8px"
@@ -63,7 +58,7 @@ const Students: NextPage = () => {
             </Alert>
           )}
           <Box>
-            <Heading size="l">Add a course offering</Heading>
+            <Heading size="l">Add a course</Heading>
           </Box>
           <Spacer />
           <Formik
@@ -71,13 +66,10 @@ const Students: NextPage = () => {
               start_date: `${startDate.getFullYear()}-${
                 startDate.getMonth() + 1
               }-${startDate.getDate()}`,
-              end_date: `${startDate.getFullYear()}-${
-                startDate.getMonth() + 1
-              }-${startDate.getDate()}`,
             }}
             onSubmit={(values) => {
               const response = fetch(
-                "https://ec2-52-90-191-246.compute-1.amazonaws.com/course_offering/create",
+                "https://ec2-52-90-191-246.compute-1.amazonaws.com/course/create",
                 {
                   method: "POST",
                   headers: {
@@ -103,12 +95,6 @@ const Students: NextPage = () => {
                   <BasicInput id="trainer_id" label="Trainer ID" isRequired />
 
                   <BasicInput id="centre_id" label="Centre ID" isRequired />
-
-                  <BasicInput
-                    id="checklist_id"
-                    label="Checklist ID"
-                    isRequired
-                  />
 
                   <SelectInput
                     id="mode"
@@ -146,69 +132,6 @@ const Students: NextPage = () => {
                           }}
                         />
                       </DateSelectorWrapper>
-                    </FormControl>
-                  </Box>
-
-                  <Box>
-                    <FormControl>
-                      <FormLabel htmlFor="end_date">End Date</FormLabel>
-                      <Input />
-                      <DateSelectorWrapper>
-                        <DatePicker
-                          selected={endDate}
-                          onChange={(date: Date) => {
-                            setEndDate(date);
-                            setFieldValue(
-                              "end_date",
-                              `${date.getFullYear()}-${
-                                date.getMonth() + 1
-                              }-${date.getDate()}`
-                            );
-                          }}
-                        />
-                      </DateSelectorWrapper>
-                    </FormControl>
-                  </Box>
-
-                  <BasicInput id="frequency" label="Frequency" isRequired />
-
-                  <BasicInput id="duration" label="Duration" isRequired />
-
-                  <BasicInput
-                    id="checklist_id"
-                    label="Checklist ID"
-                    isRequired
-                  />
-
-                  <Box>
-                    <FormControl>
-                      <FormLabel htmlFor="deposit">Deposit</FormLabel>
-                      <NumberInput
-                        min={0}
-                        precision={2}
-                        step={0.01}
-                        keepWithinRange
-                        isRequired
-                      >
-                        <NumberInputField id="deposit" />
-                        <NumberInputStepper>
-                          <NumberIncrementStepper />
-                          <NumberDecrementStepper />
-                        </NumberInputStepper>
-                      </NumberInput>
-                    </FormControl>
-                  </Box>
-
-                  <Box>
-                    <FormControl>
-                      <FormLabel htmlFor="max_students">Max Students</FormLabel>
-                      <NumberInput min={0} step={1} keepWithinRange isRequired>
-                        <NumberInputField id="max_students" />
-                        <NumberInputStepper>
-                          <NumberIncrementStepper />
-                          <NumberDecrementStepper />
-                        </NumberInputStepper>
-                      </NumberInput>
                     </FormControl>
                   </Box>
 

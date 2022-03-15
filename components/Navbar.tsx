@@ -85,6 +85,13 @@ export const Navbar = () => {
             </MenuItem>
             <MenuItem
               onClick={() => {
+                window.location.href = "/courses/create";
+              }}
+            >
+              Add a course
+            </MenuItem>
+            <MenuItem
+              onClick={() => {
                 window.location.href = "/courses/offering/create";
               }}
             >

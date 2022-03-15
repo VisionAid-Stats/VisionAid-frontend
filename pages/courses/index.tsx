@@ -22,9 +22,7 @@ const Root = styled.div`
 const Courses: NextPage = () => {
   const [data, setData] = useState<any[]>([]);
   useEffect(() => {
-    fetch(
-      "http://ec2-52-90-191-246.compute-1.amazonaws.com:8080/course/get_all"
-    )
+    fetch("https://ec2-52-90-191-246.compute-1.amazonaws.com/course/get_all")
       .then((response) => response.json())
       .then((json) => setData(json));
   }, []);

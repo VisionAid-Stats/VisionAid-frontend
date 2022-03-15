@@ -26,7 +26,7 @@ const Courses: NextPage = () => {
   useEffect(() => {
     if (id !== undefined) {
       fetch(
-        `http://ec2-52-90-191-246.compute-1.amazonaws.com:8080/student/get_by_id?student_id=${id}`
+        `https://ec2-52-90-191-246.compute-1.amazonaws.com/student/get_by_id?student_id=${id}`
       )
         .then((response) => response.json())
         .then((json) => setData(json[0]));

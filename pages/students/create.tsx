@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import styled from "@emotion/styled";
-import { Navbar } from "../../components/Navbar";
 import type { NextPage } from "next";
 import {
   Container,
@@ -23,14 +22,20 @@ import {
   VStack,
   Spacer,
   Heading,
+  Alert,
+  AlertIcon,
+  CloseButton,
 } from "@chakra-ui/react";
-import { Field, Form, Formik } from "formik";
+import { Formik } from "formik";
+
+import { Navbar, SelectInput } from "../../components";
 
 const Root = styled.div`
   height: 100vh;
 `;
 
 const Students: NextPage = () => {
+  const [showAlert, setShowAlert] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 
   const [educationDetail, setEducationDetail] = useState("");
@@ -87,16 +92,22 @@ const Students: NextPage = () => {
             <Heading size="l">Add student</Heading>
           </Box>
           <Spacer />
-          <Formik
-            initialValues={{}}
-            onSubmit={(values, actions) => {
-              console.log(values, actions);
-              setTimeout(() => {
-                setSubmitting(false);
-              }, 1000);
-            }}
-          >
+          <Formik initialValues={{}} onSubmit={(values, actions) => {}}>
             <VStack spacing={10} align="flex-start">
+              {showAlert && (
+                <Alert status="success" variant="subtle">
+                  <AlertIcon />
+                  Student successfully created
+                  <CloseButton
+                    position="absolute"
+                    right="8px"
+                    top="8px"
+                    onClick={() => {
+                      setShowAlert(false);
+                    }}
+                  />
+                </Alert>
+              )}
               <Box>
                 <FormControl isRequired>
                   <FormLabel htmlFor="name">Name</FormLabel>
@@ -179,33 +190,167 @@ const Students: NextPage = () => {
                 />
               </Box>
 
-              <Box>
-                <FormControl as="fieldset">
-                  <FormLabel as="legend">Mother Tongue</FormLabel>
-                  <RadioGroup>
-                    <HStack spacing="24px">
-                      <Radio value="m_marathi">Marathi</Radio>
-                      <Radio value="m_hindi">Hindi</Radio>
-                      <Radio value="m_punjabi">Punjabi</Radio>
-                      <Radio value="m_english">English</Radio>
-                    </HStack>
-                  </RadioGroup>
-                </FormControl>
-              </Box>
+              <SelectInput
+                id="mother_tongue"
+                label="Mother Tongue"
+                isRequired={false}
+                placeholder="Select mother tongue..."
+                options={[
+                  {
+                    value: "Assamese",
+                    label: "Assamese",
+                  },
+                  {
+                    value: "Bengali",
+                    label: "Bengali",
+                  },
+                  {
+                    value: "English",
+                    label: "English",
+                  },
+                  {
+                    value: "Gujarati",
+                    label: "Gujarati",
+                  },
+                  {
+                    value: "Hindi",
+                    label: "Hindi",
+                  },
+                  {
+                    value: "Kannada",
+                    label: "Kannada",
+                  },
+                  {
+                    value: "Kashmiri",
+                    label: "Kashmiri",
+                  },
+                  {
+                    value: "Konkani",
+                    label: "Konkani",
+                  },
+                  {
+                    value: "Malayalam",
+                    label: "Malayalam",
+                  },
+                  {
+                    value: "Marathi",
+                    label: "Marathi",
+                  },
+                  {
+                    value: "Nepalese",
+                    label: "Nepalese",
+                  },
+                  {
+                    value: "Oriya",
+                    label: "Oriya",
+                  },
+                  {
+                    value: "Punjabi",
+                    label: "Punjabi",
+                  },
+                  {
+                    value: "Sanskrit",
+                    label: "Sanskrit",
+                  },
+                  {
+                    value: "Sindhi",
+                    label: "Sindhi",
+                  },
+                  {
+                    value: "Tamil",
+                    label: "Tamil",
+                  },
+                  {
+                    value: "Telugu",
+                    label: "Telugu",
+                  },
+                  {
+                    value: "Urdu",
+                    label: "Urdu",
+                  },
+                ]}
+              />
 
-              <Box>
-                <FormControl as="fieldset">
-                  <FormLabel as="legend">Education Tongue</FormLabel>
-                  <RadioGroup>
-                    <HStack spacing="24px">
-                      <Radio value="e_marathi">Marathi</Radio>
-                      <Radio value="e_hindi">Hindi</Radio>
-                      <Radio value="e_punjabi">Punjabi</Radio>
-                      <Radio value="e_english">English</Radio>
-                    </HStack>
-                  </RadioGroup>
-                </FormControl>
-              </Box>
+              <SelectInput
+                id="education_tongue"
+                label="Education Tongue"
+                isRequired={false}
+                placeholder="Select education tongue..."
+                options={[
+                  {
+                    value: "Assamese",
+                    label: "Assamese",
+                  },
+                  {
+                    value: "Bengali",
+                    label: "Bengali",
+                  },
+                  {
+                    value: "English",
+                    label: "English",
+                  },
+                  {
+                    value: "Gujarati",
+                    label: "Gujarati",
+                  },
+                  {
+                    value: "Hindi",
+                    label: "Hindi",
+                  },
+                  {
+                    value: "Kannada",
+                    label: "Kannada",
+                  },
+                  {
+                    value: "Kashmiri",
+                    label: "Kashmiri",
+                  },
+                  {
+                    value: "Konkani",
+                    label: "Konkani",
+                  },
+                  {
+                    value: "Malayalam",
+                    label: "Malayalam",
+                  },
+                  {
+                    value: "Marathi",
+                    label: "Marathi",
+                  },
+                  {
+                    value: "Nepalese",
+                    label: "Nepalese",
+                  },
+                  {
+                    value: "Oriya",
+                    label: "Oriya",
+                  },
+                  {
+                    value: "Punjabi",
+                    label: "Punjabi",
+                  },
+                  {
+                    value: "Sanskrit",
+                    label: "Sanskrit",
+                  },
+                  {
+                    value: "Sindhi",
+                    label: "Sindhi",
+                  },
+                  {
+                    value: "Tamil",
+                    label: "Tamil",
+                  },
+                  {
+                    value: "Telugu",
+                    label: "Telugu",
+                  },
+                  {
+                    value: "Urdu",
+                    label: "Urdu",
+                  },
+                ]}
+              />
 
               <Box>
                 <FormLabel>Employment Detail</FormLabel>
@@ -319,6 +464,11 @@ const Students: NextPage = () => {
                 isLoading={submitting}
                 onClick={() => {
                   setSubmitting(true);
+                  setTimeout(() => {
+                    setSubmitting(false);
+                    window.scrollTo(0, 0);
+                    setShowAlert(true);
+                  }, 300);
                 }}
                 type="submit"
               >

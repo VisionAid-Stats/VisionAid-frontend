@@ -23,7 +23,7 @@ const Courses: NextPage = () => {
   const [data, setData] = useState<any[]>([]);
   useEffect(() => {
     fetch(
-      "http://ec2-52-90-191-246.compute-1.amazonaws.com:8080/course_offering/get_all"
+      "https://ec2-52-90-191-246.compute-1.amazonaws.com/course_offering/get_all"
     )
       .then((response) => response.json())
       .then((json) => setData(json));
