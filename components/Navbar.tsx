@@ -99,6 +99,27 @@ export const Navbar = () => {
             </MenuItem>
           </MenuList>
         </Menu>
+        <Menu autoSelect={false}>
+          <MenuButton as={Button} variant="ghost">
+            Trainers
+          </MenuButton>
+          <MenuList>
+            <MenuItem
+              onClick={() => {
+                window.location.href = "/trainers";
+              }}
+            >
+              List trainers
+            </MenuItem>
+            <MenuItem
+              onClick={() => {
+                window.location.href = "/trainers/create";
+              }}
+            >
+              Add a trainer
+            </MenuItem>
+          </MenuList>
+        </Menu>
       </Box>
       <Spacer />
       <Menu autoSelect={false}>
