@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import type { NextPage } from "next";
 import { Formik, Form } from "formik";
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 import styled from "@emotion/styled";
@@ -9,34 +8,20 @@ import {
   Container,
   Heading,
   Stack,
-  FormControl,
-  FormLabel,
-  Input,
   Button,
   Box,
   VStack,
   Spacer,
-  NumberInput,
-  NumberInputStepper,
-  NumberIncrementStepper,
-  NumberInputField,
-  NumberDecrementStepper,
   Alert,
   AlertIcon,
   CloseButton,
 } from "@chakra-ui/react";
 
-import { Navbar, BasicInput, SelectInput } from "../../../components";
-import { API_PATH } from "../../../routes";
+import { Navbar, SelectInput } from "../../../components";
+import { API_PATH } from "../../../common";
 
 const Root = styled.div`
   height: 100vh;
-`;
-
-const DateSelectorWrapper = styled.div`
-  position: absolute;
-  top: 40px;
-  padding-left: 5px;
 `;
 
 const courseListTransformer = (courses) => {

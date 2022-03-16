@@ -13,7 +13,7 @@ import {
   Tr,
 } from "@chakra-ui/react";
 
-import { API_PATH } from "../../../routes";
+import { API_PATH } from "../../../common";
 
 const Root = styled.div`
   height: 100vh;

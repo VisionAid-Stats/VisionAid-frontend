@@ -15,7 +15,7 @@ import {
 } from "@chakra-ui/react";
 import { CheckIcon } from "@chakra-ui/icons";
 
-import { API_PATH } from "../../routes";
+import { API_PATH } from "../../common";
 
 const Root = styled.div`
   height: 100vh;

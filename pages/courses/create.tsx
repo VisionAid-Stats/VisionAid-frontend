@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import type { NextPage } from "next";
-import { Formik, Form, Field } from "formik";
-import DatePicker from "react-datepicker";
+import { Formik, Form } from "formik";
 import "react-datepicker/dist/react-datepicker.css";
 
 import styled from "@emotion/styled";
@@ -21,9 +20,8 @@ import {
   HStack,
 } from "@chakra-ui/react";
 
-import { Navbar, BasicInput, SelectInput } from "../../components";
-import { API_PATH } from "../../routes";
-import { setDefaultResultOrder } from "dns";
+import { Navbar, BasicInput } from "../../components";
+import { API_PATH } from "../../common";
 
 const Root = styled.div`
   height: 100vh;
@@ -64,7 +62,6 @@ const Students: NextPage = () => {
           <Formik
             initialValues={{ is_online: false, is_offline: false }}
             onSubmit={(values) => {
-              console.log(values);
               const response = fetch(`${API_PATH}/course/create`, {
                 method: "POST",
                 headers: {
