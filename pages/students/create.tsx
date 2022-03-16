@@ -59,7 +59,7 @@ const Students: NextPage = () => {
           <Formik
             initialValues={{ age: 0 }}
             onSubmit={(values) => {
-              const response = fetch(`${API_PATH}/course_offering/create`, {
+              const response = fetch(`${API_PATH}/student/create`, {
                 method: "POST",
                 headers: {
                   "Content-Type": "application/json",
