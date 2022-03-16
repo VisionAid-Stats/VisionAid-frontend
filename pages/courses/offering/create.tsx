@@ -27,6 +27,7 @@ import {
 } from "@chakra-ui/react";
 
 import { Navbar, BasicInput, SelectInput } from "../../../components";
+import { API_PATH } from "../../../routes";
 
 const Root = styled.div`
   height: 100vh;
@@ -76,16 +77,13 @@ const Students: NextPage = () => {
               }-${startDate.getDate()}`,
             }}
             onSubmit={(values) => {
-              const response = fetch(
-                "https://ec2-52-90-191-246.compute-1.amazonaws.com/course_offering/create",
-                {
-                  method: "POST",
-                  headers: {
-                    "Content-Type": "application/json",
-                  },
-                  body: JSON.stringify(values),
-                }
-              ).then((value) => {
+              const response = fetch(`${API_PATH}/course_offering/create`, {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify(values),
+              }).then((value) => {
                 window.scrollTo(0, 0);
                 setShowAlert(true);
               });

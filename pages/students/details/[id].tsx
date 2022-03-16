@@ -13,6 +13,8 @@ import {
   Tr,
 } from "@chakra-ui/react";
 
+import { API_PATH } from "../../../routes";
+
 const Root = styled.div`
   height: 100vh;
 `;
@@ -25,9 +27,7 @@ const Courses: NextPage = () => {
   const [data, setData] = useState<any>({});
   useEffect(() => {
     if (id !== undefined) {
-      fetch(
-        `https://ec2-52-90-191-246.compute-1.amazonaws.com/student/get_by_id?student_id=${id}`
-      )
+      fetch(`${API_PATH}/student/get_by_id?student_id=${id}`)
         .then((response) => response.json())
         .then((json) => setData(json[0]));
     }

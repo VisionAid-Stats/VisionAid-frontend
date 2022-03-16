@@ -15,6 +15,8 @@ import {
 } from "@chakra-ui/react";
 import { InfoIcon } from "@chakra-ui/icons";
 
+import { API_PATH } from "../../routes";
+
 const Root = styled.div`
   height: 100vh;
 `;
@@ -28,7 +30,7 @@ const ImageLinkWrapper = styled.div`
 const Courses: NextPage = () => {
   const [data, setData] = useState<any[]>([]);
   useEffect(() => {
-    fetch("https://ec2-52-90-191-246.compute-1.amazonaws.com/student/get_all")
+    fetch(`${API_PATH}/student/get_all`)
       .then((response) => response.json())
       .then((json) => setData(json));
   }, []);
