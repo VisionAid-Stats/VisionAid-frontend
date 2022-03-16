@@ -24,13 +24,14 @@ export const SelectInput = ({
           <FormControl isRequired={isRequired}>
             <FormLabel htmlFor={id}>{label}</FormLabel>
             <Select placeholder={placeholder} id={id} {...field}>
-              {options.map((option, index) => {
-                return (
-                  <option key={index} value={option.value}>
-                    {option.label}
-                  </option>
-                );
-              })}
+              {!!options &&
+                options.map((option, index) => {
+                  return (
+                    <option key={index} value={option.value}>
+                      {option.label}
+                    </option>
+                  );
+                })}
             </Select>
           </FormControl>
         )}

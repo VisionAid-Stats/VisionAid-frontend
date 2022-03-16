@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import type { NextPage } from "next";
 import { Formik, Form } from "formik";
 import DatePicker from "react-datepicker";
@@ -39,10 +39,85 @@ const DateSelectorWrapper = styled.div`
   padding-left: 5px;
 `;
 
+const courseListTransformer = (courses) => {
+  if (!!courses) {
+    return courses.map((course) => {
+      return {
+        label: course.name,
+        value: course.course_id,
+      };
+    });
+  }
+  return [];
+};
+
+const trainerListTransformer = (trainers) => {
+  if (!!trainers) {
+    return trainers.map((trainer) => {
+      return {
+        label: trainer.name,
+        value: trainer.trainer_id,
+      };
+    });
+  }
+  return [];
+};
+
+const pmListTransformer = (pms) => {
+  if (!!pms) {
+    return pms.map((pm) => {
+      return {
+        label: pm.name,
+        value: pm.user_id,
+      };
+    });
+  }
+  return [];
+};
+
+const centreListTransformer = (centres) => {
+  if (!!centres) {
+    return centres.map((centre) => {
+      return {
+        label: centre.location,
+        value: centre.centre_id,
+      };
+    });
+  }
+  return [];
+};
+
 const Students: NextPage = () => {
   const [showAlert, setShowAlert] = useState(false);
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
+
+  const [courseList, setCourseList] = useState();
+  const [trainerList, setTrainerList] = useState();
+  const [pmList, setPMList] = useState();
+  const [centreList, setCentreList] = useState();
+
+  useEffect(() => {
+    fetch(`${API_PATH}/course/get_all`)
+      .then((response) => response.json())
+      .then((json) => setCourseList(courseListTransformer(json)));
+  }, []);
+
+  useEffect(() => {
+    fetch(`${API_PATH}/trainer/get_all`)
+      .then((response) => response.json())
+      .then((json) => setTrainerList(trainerListTransformer(json)));
+  }, []);
+
+  useEffect(() => {
+    fetch(`${API_PATH}/user/get_pms`)
+      .then((response) => response.json())
+      .then((json) => setPMList(pmListTransformer(json)));
+  }, []);
+
+  useEffect(() => {
+    fetch(`${API_PATH}/centre/get_all`)
+      .then((response) => response.json())
+      .then((json) => setCentreList(centreListTransformer(json)));
+  }, []);
 
   return (
     <Root>
@@ -68,14 +143,7 @@ const Students: NextPage = () => {
           </Box>
           <Spacer />
           <Formik
-            initialValues={{
-              start_date: `${startDate.getFullYear()}-${
-                startDate.getMonth() + 1
-              }-${startDate.getDate()}`,
-              end_date: `${startDate.getFullYear()}-${
-                startDate.getMonth() + 1
-              }-${startDate.getDate()}`,
-            }}
+            initialValues={{}}
             onSubmit={(values) => {
               const response = fetch(`${API_PATH}/course_offering/create`, {
                 method: "POST",
@@ -92,123 +160,37 @@ const Students: NextPage = () => {
             {({ setFieldValue }) => (
               <Form>
                 <VStack spacing={10} align="flex-start">
-                  <BasicInput id="course_id" label="Course ID" isRequired />
-                  <BasicInput
-                    id="pm_user_id"
-                    label="Program Manager ID"
+                  <SelectInput
+                    id="course_id"
+                    label="Course"
+                    placeholder="Select course to offer..."
                     isRequired
-                  />
-                  <BasicInput id="trainer_id" label="Trainer ID" isRequired />
-
-                  <BasicInput id="centre_id" label="Centre ID" isRequired />
-
-                  <BasicInput
-                    id="checklist_id"
-                    label="Checklist ID"
-                    isRequired
+                    options={courseList}
                   />
 
                   <SelectInput
-                    id="mode"
-                    label="Education Mode"
-                    placeholder="Select education mode..."
+                    id="trainer_id"
+                    label="Trainer"
+                    placeholder="Select trainer..."
                     isRequired
-                    options={[
-                      {
-                        value: "Virtual",
-                        label: "Virtual",
-                      },
-                      {
-                        value: "Classroom",
-                        label: "Classroom",
-                      },
-                      { value: "E-Learning", label: "E-Learning" },
-                    ]}
+                    options={trainerList}
                   />
 
-                  <Box>
-                    <FormControl>
-                      <FormLabel htmlFor="start_date">Start Date</FormLabel>
-                      <Input />
-                      <DateSelectorWrapper>
-                        <DatePicker
-                          selected={startDate}
-                          onChange={(date: Date) => {
-                            setStartDate(date);
-                            setFieldValue(
-                              "start_date",
-                              `${date.getFullYear()}-${
-                                date.getMonth() + 1
-                              }-${date.getDate()}`
-                            );
-                          }}
-                        />
-                      </DateSelectorWrapper>
-                    </FormControl>
-                  </Box>
-
-                  <Box>
-                    <FormControl>
-                      <FormLabel htmlFor="end_date">End Date</FormLabel>
-                      <Input />
-                      <DateSelectorWrapper>
-                        <DatePicker
-                          selected={endDate}
-                          onChange={(date: Date) => {
-                            setEndDate(date);
-                            setFieldValue(
-                              "end_date",
-                              `${date.getFullYear()}-${
-                                date.getMonth() + 1
-                              }-${date.getDate()}`
-                            );
-                          }}
-                        />
-                      </DateSelectorWrapper>
-                    </FormControl>
-                  </Box>
-
-                  <BasicInput id="frequency" label="Frequency" isRequired />
-
-                  <BasicInput id="duration" label="Duration" isRequired />
-
-                  <BasicInput
-                    id="checklist_id"
-                    label="Checklist ID"
+                  <SelectInput
+                    id="pm_user_id"
+                    label="Program Manager"
+                    placeholder="Select program manager..."
                     isRequired
+                    options={pmList}
                   />
 
-                  <Box>
-                    <FormControl>
-                      <FormLabel htmlFor="deposit">Deposit</FormLabel>
-                      <NumberInput
-                        min={0}
-                        precision={2}
-                        step={0.01}
-                        keepWithinRange
-                        isRequired
-                      >
-                        <NumberInputField id="deposit" />
-                        <NumberInputStepper>
-                          <NumberIncrementStepper />
-                          <NumberDecrementStepper />
-                        </NumberInputStepper>
-                      </NumberInput>
-                    </FormControl>
-                  </Box>
-
-                  <Box>
-                    <FormControl>
-                      <FormLabel htmlFor="max_students">Max Students</FormLabel>
-                      <NumberInput min={0} step={1} keepWithinRange isRequired>
-                        <NumberInputField id="max_students" />
-                        <NumberInputStepper>
-                          <NumberIncrementStepper />
-                          <NumberDecrementStepper />
-                        </NumberInputStepper>
-                      </NumberInput>
-                    </FormControl>
-                  </Box>
+                  <SelectInput
+                    id="centre_id"
+                    label="Centre"
+                    placeholder="Select centre..."
+                    isRequired
+                    options={centreList}
+                  />
 
                   <Button mt={4} colorScheme="teal" type="submit">
                     Submit
