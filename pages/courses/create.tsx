@@ -9,21 +9,21 @@ import {
   Container,
   Heading,
   Stack,
-  FormControl,
-  FormLabel,
-  Input,
   Button,
   Box,
   VStack,
   Spacer,
-  Select,
   Alert,
   AlertIcon,
   CloseButton,
+  CheckboxGroup,
+  Checkbox,
+  HStack,
 } from "@chakra-ui/react";
 
 import { Navbar, BasicInput, SelectInput } from "../../components";
 import { API_PATH } from "../../routes";
+import { setDefaultResultOrder } from "dns";
 
 const Root = styled.div`
   height: 100vh;
@@ -37,7 +37,6 @@ const DateSelectorWrapper = styled.div`
 
 const Students: NextPage = () => {
   const [showAlert, setShowAlert] = useState(false);
-  const [startDate, setStartDate] = useState(new Date());
 
   return (
     <Root>
@@ -63,12 +62,9 @@ const Students: NextPage = () => {
           </Box>
           <Spacer />
           <Formik
-            initialValues={{
-              start_date: `${startDate.getFullYear()}-${
-                startDate.getMonth() + 1
-              }-${startDate.getDate()}`,
-            }}
+            initialValues={{ is_online: false, is_offline: false }}
             onSubmit={(values) => {
+              console.log(values);
               const response = fetch(`${API_PATH}/course/create`, {
                 method: "POST",
                 headers: {
@@ -84,54 +80,33 @@ const Students: NextPage = () => {
             {({ setFieldValue }) => (
               <Form>
                 <VStack spacing={10} align="flex-start">
-                  <BasicInput id="course_id" label="Course ID" isRequired />
-                  <BasicInput
-                    id="pm_user_id"
-                    label="Program Manager ID"
-                    isRequired
-                  />
-                  <BasicInput id="trainer_id" label="Trainer ID" isRequired />
+                  <BasicInput id="name" label="Course Name" isRequired />
+                  <BasicInput id="code" label="Course Code" isRequired />
 
-                  <BasicInput id="centre_id" label="Centre ID" isRequired />
-
-                  <SelectInput
-                    id="mode"
-                    label="Education Mode"
-                    placeholder="Select education mode..."
-                    isRequired
-                    options={[
-                      {
-                        value: "Virtual",
-                        label: "Virtual",
-                      },
-                      {
-                        value: "Classroom",
-                        label: "Classroom",
-                      },
-                      { value: "E-Learning", label: "E-Learning" },
-                    ]}
-                  />
-
-                  <Box>
-                    <FormControl>
-                      <FormLabel htmlFor="start_date">Start Date</FormLabel>
-                      <Input />
-                      <DateSelectorWrapper>
-                        <DatePicker
-                          selected={startDate}
-                          onChange={(date: Date) => {
-                            setStartDate(date);
-                            setFieldValue(
-                              "start_date",
-                              `${date.getFullYear()}-${
-                                date.getMonth() + 1
-                              }-${date.getDate()}`
-                            );
-                          }}
-                        />
-                      </DateSelectorWrapper>
-                    </FormControl>
-                  </Box>
+                  <CheckboxGroup
+                    onChange={(checked: string[]) => {
+                      console.log(checked);
+                      if (
+                        checked.indexOf("e_learning") !== -1 ||
+                        checked.indexOf("virtual") !== -1
+                      ) {
+                        setFieldValue("is_online", true);
+                      } else {
+                        setFieldValue("is_online", false);
+                      }
+                      if (checked.indexOf("classroom") !== -1) {
+                        setFieldValue("is_offline", true);
+                      } else {
+                        setFieldValue("is_offline", false);
+                      }
+                    }}
+                  >
+                    <HStack>
+                      <Checkbox value="e_learning">E-Learning</Checkbox>
+                      <Checkbox value="virtual">Virtual</Checkbox>
+                      <Checkbox value="classroom">Classroom</Checkbox>
+                    </HStack>
+                  </CheckboxGroup>
 
                   <Button mt={4} colorScheme="teal" type="submit">
                     Submit
