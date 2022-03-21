@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import type { NextPage } from "next";
 import { Formik, Form } from "formik";
-import "react-datepicker/dist/react-datepicker.css";
 
-import styled from "@emotion/styled";
 import {
   Container,
   Heading,
@@ -17,12 +15,8 @@ import {
   CloseButton,
 } from "@chakra-ui/react";
 
-import { Navbar, SelectInput } from "../../../components";
+import { SelectInput } from "../../../components";
 import { API_PATH } from "../../../common";
-
-const Root = styled.div`
-  height: 100vh;
-`;
 
 const courseListTransformer = (courses) => {
   if (!!courses) {
@@ -72,7 +66,7 @@ const centreListTransformer = (centres) => {
   return [];
 };
 
-const Students: NextPage = () => {
+const Page: NextPage = () => {
   const [showAlert, setShowAlert] = useState(false);
 
   const [courseList, setCourseList] = useState();
@@ -105,90 +99,87 @@ const Students: NextPage = () => {
   }, []);
 
   return (
-    <Root>
-      <Navbar />
-      <Container>
-        <Stack>
-          {showAlert && (
-            <Alert status="success" variant="subtle">
-              <AlertIcon />
-              Course offering successfully created
-              <CloseButton
-                position="absolute"
-                right="8px"
-                top="8px"
-                onClick={() => {
-                  setShowAlert(false);
-                }}
-              />
-            </Alert>
+    <Container>
+      <Stack>
+        {showAlert && (
+          <Alert status="success" variant="subtle">
+            <AlertIcon />
+            Course offering successfully created
+            <CloseButton
+              position="absolute"
+              right="8px"
+              top="8px"
+              onClick={() => {
+                setShowAlert(false);
+              }}
+            />
+          </Alert>
+        )}
+        <Box>
+          <Heading size="l">Add a course offering</Heading>
+        </Box>
+        <Spacer />
+        <Formik
+          initialValues={{}}
+          onSubmit={(values) => {
+            const response = fetch(`${API_PATH}/course_offering/create`, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(values),
+            }).then((value) => {
+              window.scrollTo(0, 0);
+              setShowAlert(true);
+            });
+          }}
+        >
+          {({ setFieldValue }) => (
+            <Form>
+              <VStack spacing={10} align="flex-start">
+                <SelectInput
+                  id="course_id"
+                  label="Course"
+                  placeholder="Select course to offer..."
+                  isRequired
+                  options={courseList}
+                />
+
+                <SelectInput
+                  id="trainer_id"
+                  label="Trainer"
+                  placeholder="Select trainer..."
+                  isRequired
+                  options={trainerList}
+                />
+
+                <SelectInput
+                  id="pm_user_id"
+                  label="Program Manager"
+                  placeholder="Select program manager..."
+                  isRequired
+                  options={pmList}
+                />
+
+                <SelectInput
+                  id="centre_id"
+                  label="Centre"
+                  placeholder="Select centre..."
+                  isRequired
+                  options={centreList}
+                />
+
+                <Button mt={4} colorScheme="teal" type="submit">
+                  Submit
+                </Button>
+                <Spacer />
+              </VStack>
+            </Form>
           )}
-          <Box>
-            <Heading size="l">Add a course offering</Heading>
-          </Box>
-          <Spacer />
-          <Formik
-            initialValues={{}}
-            onSubmit={(values) => {
-              const response = fetch(`${API_PATH}/course_offering/create`, {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify(values),
-              }).then((value) => {
-                window.scrollTo(0, 0);
-                setShowAlert(true);
-              });
-            }}
-          >
-            {({ setFieldValue }) => (
-              <Form>
-                <VStack spacing={10} align="flex-start">
-                  <SelectInput
-                    id="course_id"
-                    label="Course"
-                    placeholder="Select course to offer..."
-                    isRequired
-                    options={courseList}
-                  />
-
-                  <SelectInput
-                    id="trainer_id"
-                    label="Trainer"
-                    placeholder="Select trainer..."
-                    isRequired
-                    options={trainerList}
-                  />
-
-                  <SelectInput
-                    id="pm_user_id"
-                    label="Program Manager"
-                    placeholder="Select program manager..."
-                    isRequired
-                    options={pmList}
-                  />
-
-                  <SelectInput
-                    id="centre_id"
-                    label="Centre"
-                    placeholder="Select centre..."
-                    isRequired
-                    options={centreList}
-                  />
-
-                  <Button mt={4} colorScheme="teal" type="submit">
-                    Submit
-                  </Button>
-                  <Spacer />
-                </VStack>
-              </Form>
-            )}
-          </Formik>
-        </Stack>
-      </Container>
-    </Root>
+        </Formik>
+      </Stack>
+    </Container>
   );
 };
 
-export default Students;
+export default Page;

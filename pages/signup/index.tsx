@@ -3,23 +3,22 @@ import type { NextPage } from "next";
 import { Formik, Form } from "formik";
 
 import {
+  Box,
   Container,
   Heading,
-  Stack,
-  Button,
-  Box,
-  VStack,
   Spacer,
+  Stack,
   Alert,
   AlertIcon,
   CloseButton,
+  Button,
   CheckboxGroup,
-  Checkbox,
   HStack,
+  Checkbox,
 } from "@chakra-ui/react";
 
-import { BasicInput } from "../../components";
 import { API_PATH } from "../../common";
+import { BasicInput, PasswordInput } from "../../components";
 
 const Page: NextPage = () => {
   const [showAlert, setShowAlert] = useState(false);
@@ -30,7 +29,7 @@ const Page: NextPage = () => {
         {showAlert && (
           <Alert status="success" variant="subtle">
             <AlertIcon />
-            Course successfully created
+            Account successfully created
             <CloseButton
               position="absolute"
               right="8px"
@@ -42,13 +41,13 @@ const Page: NextPage = () => {
           </Alert>
         )}
         <Box>
-          <Heading size="l">Add a course</Heading>
+          <Heading size="l">Create a new account</Heading>
         </Box>
         <Spacer />
         <Formik
-          initialValues={{ is_online: false, is_offline: false }}
+          initialValues={{ is_pm: false, is_admin: false }}
           onSubmit={(values) => {
-            const response = fetch(`${API_PATH}/course/create`, {
+            const response = fetch(`${API_PATH}/user/create`, {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
@@ -62,32 +61,30 @@ const Page: NextPage = () => {
         >
           {({ setFieldValue }) => (
             <Form>
-              <VStack spacing={10} align="flex-start">
-                <BasicInput id="name" label="Course Name" isRequired />
-                <BasicInput id="code" label="Course Code" isRequired />
+              <Stack spacing={10} align="flex-start">
+                <BasicInput id="email" label="Email" isRequired />
+
+                <BasicInput id="name" label="Name" isRequired />
+
+                <PasswordInput id="password" label="Password" />
 
                 <CheckboxGroup
                   onChange={(checked: string[]) => {
-                    console.log(checked);
-                    if (
-                      checked.indexOf("e_learning") !== -1 ||
-                      checked.indexOf("virtual") !== -1
-                    ) {
-                      setFieldValue("is_online", true);
+                    if (checked.indexOf("is_pm") !== -1) {
+                      setFieldValue("is_pm", true);
                     } else {
-                      setFieldValue("is_online", false);
+                      setFieldValue("is_pm", false);
                     }
-                    if (checked.indexOf("classroom") !== -1) {
-                      setFieldValue("is_offline", true);
+                    if (checked.indexOf("is_admin") !== -1) {
+                      setFieldValue("is_admin", true);
                     } else {
-                      setFieldValue("is_offline", false);
+                      setFieldValue("is_admin", false);
                     }
                   }}
                 >
                   <HStack>
-                    <Checkbox value="e_learning">E-Learning</Checkbox>
-                    <Checkbox value="virtual">Virtual</Checkbox>
-                    <Checkbox value="classroom">Classroom</Checkbox>
+                    <Checkbox value="is_pm">Program Manager</Checkbox>
+                    <Checkbox value="is_admin">Admin</Checkbox>
                   </HStack>
                 </CheckboxGroup>
 
@@ -95,7 +92,7 @@ const Page: NextPage = () => {
                   Submit
                 </Button>
                 <Spacer />
-              </VStack>
+              </Stack>
             </Form>
           )}
         </Formik>
