@@ -1,3 +1,4 @@
+export const TOKEN_NAME = "vision_aid_session"
 export const API_PATH = "https://api.visionaid-stats.com";
 export const  LANGUAGE_LIST = [
     {

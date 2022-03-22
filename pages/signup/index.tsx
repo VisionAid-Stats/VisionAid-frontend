@@ -89,7 +89,7 @@ const Page: NextPage = () => {
                 </CheckboxGroup>
 
                 <Button mt={4} colorScheme="teal" type="submit">
-                  Submit
+                  Sign Up
                 </Button>
                 <Spacer />
               </Stack>

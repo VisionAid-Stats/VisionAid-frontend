@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment, useCallback } from "react";
 import Image from "next/image";
 import styled from "@emotion/styled";
 import {
@@ -12,6 +12,8 @@ import {
   Button,
 } from "@chakra-ui/react";
 import bannerImage from "../public/banner.webp";
+import { useCookies } from "react-cookie";
+import { TOKEN_NAME } from "../common";
 
 const ImageWrapper = styled.div`
   img {
@@ -20,6 +22,15 @@ const ImageWrapper = styled.div`
 `;
 
 export const Navbar = () => {
+  const [cookie, _setCookie, removeCookie] = useCookies([TOKEN_NAME]);
+
+  const authenticated = !!cookie.vision_aid_session;
+
+  const logout = useCallback(() => {
+    removeCookie(TOKEN_NAME);
+    window.location.href = "/";
+  }, [removeCookie]);
+
   return (
     <Flex as="nav" align="center">
       <Box>
@@ -43,93 +54,123 @@ export const Navbar = () => {
         >
           Home
         </Button>
-        <Menu autoSelect={false}>
-          <MenuButton as={Button} variant="ghost">
-            Students
-          </MenuButton>
-          <MenuList>
-            <MenuItem
-              onClick={() => {
-                window.location.href = "/students";
-              }}
-            >
-              List students
-            </MenuItem>
-            <MenuItem
-              onClick={() => {
-                window.location.href = "/students/create";
-              }}
-            >
-              Add a student
-            </MenuItem>
-          </MenuList>
-        </Menu>
-        <Menu autoSelect={false}>
-          <MenuButton as={Button} variant="ghost">
-            Courses
-          </MenuButton>
-          <MenuList>
-            <MenuItem
-              onClick={() => {
-                window.location.href = "/courses";
-              }}
-            >
-              List courses
-            </MenuItem>
-            <MenuItem
-              onClick={() => {
-                window.location.href = "/courses/offering";
-              }}
-            >
-              List course offerings
-            </MenuItem>
-            <MenuItem
-              onClick={() => {
-                window.location.href = "/courses/create";
-              }}
-            >
-              Add a course
-            </MenuItem>
-            <MenuItem
-              onClick={() => {
-                window.location.href = "/courses/offering/create";
-              }}
-            >
-              Add a course offering
-            </MenuItem>
-          </MenuList>
-        </Menu>
-        <Menu autoSelect={false}>
-          <MenuButton as={Button} variant="ghost">
-            Trainers
-          </MenuButton>
-          <MenuList>
-            <MenuItem
-              onClick={() => {
-                window.location.href = "/trainers";
-              }}
-            >
-              List trainers
-            </MenuItem>
-            <MenuItem
-              onClick={() => {
-                window.location.href = "/trainers/create";
-              }}
-            >
-              Add a trainer
-            </MenuItem>
-          </MenuList>
-        </Menu>
+        {authenticated && (
+          <Fragment>
+            <Menu autoSelect={false}>
+              <MenuButton as={Button} variant="ghost">
+                Students
+              </MenuButton>
+              <MenuList>
+                <MenuItem
+                  onClick={() => {
+                    window.location.href = "/students";
+                  }}
+                >
+                  List students
+                </MenuItem>
+                <MenuItem
+                  onClick={() => {
+                    window.location.href = "/students/create";
+                  }}
+                >
+                  Add a student
+                </MenuItem>
+              </MenuList>
+            </Menu>
+            <Menu autoSelect={false}>
+              <MenuButton as={Button} variant="ghost">
+                Courses
+              </MenuButton>
+              <MenuList>
+                <MenuItem
+                  onClick={() => {
+                    window.location.href = "/courses";
+                  }}
+                >
+                  List courses
+                </MenuItem>
+                <MenuItem
+                  onClick={() => {
+                    window.location.href = "/courses/offering";
+                  }}
+                >
+                  List course offerings
+                </MenuItem>
+                <MenuItem
+                  onClick={() => {
+                    window.location.href = "/courses/create";
+                  }}
+                >
+                  Add a course
+                </MenuItem>
+                <MenuItem
+                  onClick={() => {
+                    window.location.href = "/courses/offering/create";
+                  }}
+                >
+                  Add a course offering
+                </MenuItem>
+              </MenuList>
+            </Menu>
+            <Menu autoSelect={false}>
+              <MenuButton as={Button} variant="ghost">
+                Trainers
+              </MenuButton>
+              <MenuList>
+                <MenuItem
+                  onClick={() => {
+                    window.location.href = "/trainers";
+                  }}
+                >
+                  List trainers
+                </MenuItem>
+                <MenuItem
+                  onClick={() => {
+                    window.location.href = "/trainers/create";
+                  }}
+                >
+                  Add a trainer
+                </MenuItem>
+              </MenuList>
+            </Menu>
+          </Fragment>
+        )}
       </Box>
       <Spacer />
       <Menu autoSelect={false}>
-        <MenuButton as={Button} variant="ghost">
-          My Account
-        </MenuButton>
-        <MenuList>
-          <MenuItem>Account settings</MenuItem>
-          <MenuItem>Log out</MenuItem>
-        </MenuList>
+        {authenticated && (
+          <Fragment>
+            <MenuButton as={Button} variant="ghost">
+              My Account
+            </MenuButton>
+            <MenuList>
+              <MenuItem>Account settings</MenuItem>
+              <MenuItem onClick={logout}>Log out</MenuItem>
+            </MenuList>
+          </Fragment>
+        )}
+        {!authenticated && (
+          <Fragment>
+            <MenuButton
+              as={Button}
+              variant="ghost"
+              onClick={() => {
+                window.location.href = "/login";
+              }}
+            >
+              Log In
+            </MenuButton>
+            <MenuButton
+              as={Button}
+              variant="ghost"
+              onClick={() => {
+                window.location.href = "/signup";
+              }}
+            >
+              Sign Up
+            </MenuButton>
+          </Fragment>
+        )}
       </Menu>
     </Flex>
   );
