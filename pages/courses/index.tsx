@@ -12,9 +12,10 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react";
-import { CheckIcon } from "@chakra-ui/icons";
+import { CheckIcon, EditIcon } from "@chakra-ui/icons";
 
 import { API_PATH } from "../../common";
+import { ImageLinkWrapper } from "../../components";
 
 const Page: NextPage = () => {
   const [data, setData] = useState<any[]>([]);
@@ -37,6 +38,7 @@ const Page: NextPage = () => {
             <Th>Course Name</Th>
             <Th>Offered Online</Th>
             <Th>Offered Offline</Th>
+            <Th>Edit</Th>
           </Tr>
         </Thead>
         <Tbody>
@@ -48,6 +50,15 @@ const Page: NextPage = () => {
                 <Td>{course.name}</Td>
                 <Td>{course.is_online === 1 ? <CheckIcon /> : ""}</Td>
                 <Td>{course.is_offline === 1 ? <CheckIcon /> : ""}</Td>
+                <Td>
+                  <ImageLinkWrapper>
+                    <EditIcon
+                      onClick={() => {
+                        window.location.href = `/courses/edit/${course.course_id}`;
+                      }}
+                    />
+                  </ImageLinkWrapper>
+                </Td>
               </Tr>
             );
           })}

@@ -68,7 +68,6 @@ const Page: NextPage = () => {
 
                 <CheckboxGroup
                   onChange={(checked: string[]) => {
-                    console.log(checked);
                     if (
                       checked.indexOf("e_learning") !== -1 ||
                       checked.indexOf("virtual") !== -1

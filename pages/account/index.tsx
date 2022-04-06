@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import type { NextPage } from "next";
 import { Formik, Form } from "formik";
 import { useCookies } from "react-cookie";
@@ -59,7 +59,6 @@ const Page: NextPage = () => {
         <Formik
           initialValues={initalData}
           onSubmit={(values) => {
-            console.log(values);
             const response = fetch(`${API_PATH}/user/update`, {
               method: "PUT",
               headers: {

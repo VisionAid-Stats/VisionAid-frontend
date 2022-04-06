@@ -17,7 +17,6 @@ import { API_PATH } from "../../../common";
 const Page: NextPage = () => {
   const router = useRouter();
   const { id } = router.query;
-  console.log(id);
 
   const [data, setData] = useState<any>({});
   useEffect(() => {

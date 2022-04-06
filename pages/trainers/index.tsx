@@ -12,7 +12,10 @@ import {
   Tr,
 } from "@chakra-ui/react";
 
+import { EditIcon } from "@chakra-ui/icons";
+
 import { API_PATH } from "../../common";
+import { ImageLinkWrapper } from "../../components";
 
 const Page: NextPage = () => {
   const [data, setData] = useState<any[]>([]);
@@ -34,6 +37,7 @@ const Page: NextPage = () => {
             <Th>Trainer Name</Th>
             <Th>Email</Th>
             <Th>Location</Th>
+            <Th>Edit</Th>
           </Tr>
         </Thead>
         <Tbody>
@@ -44,6 +48,15 @@ const Page: NextPage = () => {
                 <Td>{trainer.name}</Td>
                 <Td>{trainer.email}</Td>
                 <Td>{trainer.location || "?"}</Td>
+                <Td>
+                  <ImageLinkWrapper>
+                    <EditIcon
+                      onClick={() => {
+                        window.location.href = `/trainers/edit/${trainer.trainer_id}`;
+                      }}
+                    />
+                  </ImageLinkWrapper>
+                </Td>
               </Tr>
             );
           })}

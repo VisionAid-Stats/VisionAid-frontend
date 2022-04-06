@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import type { NextPage } from "next";
 
-import styled from "@emotion/styled";
 import {
   Box,
   Container,
@@ -16,12 +15,7 @@ import {
 import { InfoIcon } from "@chakra-ui/icons";
 
 import { API_PATH } from "../../common";
-
-const ImageLinkWrapper = styled.div`
-  svg {
-    cursor: pointer;
-  }
-`;
+import { ImageLinkWrapper } from "../../components";
 
 const Page: NextPage = () => {
   const [data, setData] = useState<any[]>([]);
