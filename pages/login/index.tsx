@@ -1,7 +1,6 @@
 import React, { useCallback, useState, useEffect } from "react";
 import { useCookies } from "react-cookie";
 import type { NextPage } from "next";
-import { useRouter } from "next/router";
 import { Formik, Form } from "formik";
 
 import {
@@ -22,11 +21,10 @@ import { BasicInput, PasswordInput } from "../../components";
 const Page: NextPage = () => {
   const [showAlert, setShowAlert] = useState(false);
   const [cookie, setCookie] = useCookies([TOKEN_NAME]);
-  const { push } = useRouter();
 
   useEffect(() => {
     if (!!cookie.vision_aid_session) {
-      push("/");
+      window.location.href = "/";
     }
   }, [cookie]);
 

@@ -5,14 +5,16 @@ import { Field } from "formik";
 type BasicInputProps = {
   id: string;
   label: string;
-  isRequired: boolean;
+  placeholder?: string;
+  isRequired?: boolean;
   size?: "xs" | "sm" | "md" | "lg";
 };
 
 export const BasicInput = ({
   id,
   label,
-  isRequired,
+  placeholder,
+  isRequired = false,
   size,
 }: BasicInputProps) => {
   return (
@@ -21,7 +23,7 @@ export const BasicInput = ({
         {({ field }) => (
           <FormControl isRequired={isRequired}>
             <FormLabel htmlFor={id}>{label}</FormLabel>
-            <Input id={id} {...field} size={size} />
+            <Input id={id} {...field} size={size} placeholder={placeholder} />
           </FormControl>
         )}
       </Field>

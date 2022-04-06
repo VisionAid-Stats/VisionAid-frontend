@@ -15,9 +15,15 @@ type PasswordInputProps = {
   id: string;
   label: string;
   size?: "xs" | "sm" | "md" | "lg";
+  isRequired?: boolean;
 };
 
-export const PasswordInput = ({ id, label, size }: PasswordInputProps) => {
+export const PasswordInput = ({
+  id,
+  label,
+  size,
+  isRequired = true,
+}: PasswordInputProps) => {
   const [show, setShow] = useState(false);
   const toggleShow = useCallback(() => {
     setShow(!show);
@@ -27,7 +33,7 @@ export const PasswordInput = ({ id, label, size }: PasswordInputProps) => {
     <Box>
       <Field name={id}>
         {({ field }) => (
-          <FormControl isRequired>
+          <FormControl isRequired={isRequired}>
             <FormLabel htmlFor={id}>{label}</FormLabel>
             <InputGroup>
               <Input

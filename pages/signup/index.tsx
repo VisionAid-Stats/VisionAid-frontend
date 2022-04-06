@@ -41,11 +41,11 @@ const Page: NextPage = () => {
           </Alert>
         )}
         <Box>
-          <Heading size="l">Create a new account</Heading>
+          <Heading size="l">Create a new program manager account</Heading>
         </Box>
         <Spacer />
         <Formik
-          initialValues={{ is_pm: false, is_admin: false }}
+          initialValues={{ is_pm: true }}
           onSubmit={(values) => {
             const response = fetch(`${API_PATH}/user/create`, {
               method: "POST",
@@ -67,26 +67,6 @@ const Page: NextPage = () => {
                 <BasicInput id="name" label="Name" isRequired />
 
                 <PasswordInput id="password" label="Password" />
-
-                <CheckboxGroup
-                  onChange={(checked: string[]) => {
-                    if (checked.indexOf("is_pm") !== -1) {
-                      setFieldValue("is_pm", true);
-                    } else {
-                      setFieldValue("is_pm", false);
-                    }
-                    if (checked.indexOf("is_admin") !== -1) {
-                      setFieldValue("is_admin", true);
-                    } else {
-                      setFieldValue("is_admin", false);
-                    }
-                  }}
-                >
-                  <HStack>
-                    <Checkbox value="is_pm">Program Manager</Checkbox>
-                    <Checkbox value="is_admin">Admin</Checkbox>
-                  </HStack>
-                </CheckboxGroup>
 
                 <Button mt={4} colorScheme="teal" type="submit">
                   Sign Up

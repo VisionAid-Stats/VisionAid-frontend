@@ -13,7 +13,7 @@ import {
 } from "@chakra-ui/react";
 import bannerImage from "../public/banner.webp";
 import { useCookies } from "react-cookie";
-import { TOKEN_NAME } from "../common";
+import { TOKEN_NAME, useSession } from "../common";
 
 const ImageWrapper = styled.div`
   img {
@@ -22,9 +22,8 @@ const ImageWrapper = styled.div`
 `;
 
 export const Navbar = () => {
-  const [cookie, _setCookie, removeCookie] = useCookies([TOKEN_NAME]);
-
-  const authenticated = !!cookie.vision_aid_session;
+  const [_cookie, _setCookie, removeCookie] = useCookies([TOKEN_NAME]);
+  const { authenticated, isAdmin, userId } = useSession();
 
   const logout = useCallback(() => {
     removeCookie(TOKEN_NAME);
@@ -84,24 +83,10 @@ export const Navbar = () => {
               <MenuList>
                 <MenuItem
                   onClick={() => {
-                    window.location.href = "/courses";
-                  }}
-                >
-                  List courses
-                </MenuItem>
-                <MenuItem
-                  onClick={() => {
                     window.location.href = "/courses/offering";
                   }}
                 >
                   List course offerings
-                </MenuItem>
-                <MenuItem
-                  onClick={() => {
-                    window.location.href = "/courses/create";
-                  }}
-                >
-                  Add a course
                 </MenuItem>
                 <MenuItem
                   onClick={() => {
@@ -110,6 +95,24 @@ export const Navbar = () => {
                 >
                   Add a course offering
                 </MenuItem>
+                {isAdmin && (
+                  <Fragment>
+                    <MenuItem
+                      onClick={() => {
+                        window.location.href = "/courses";
+                      }}
+                    >
+                      List courses
+                    </MenuItem>
+                    <MenuItem
+                      onClick={() => {
+                        window.location.href = "/courses/create";
+                      }}
+                    >
+                      Add a course
+                    </MenuItem>
+                  </Fragment>
+                )}
               </MenuList>
             </Menu>
             <Menu autoSelect={false}>
@@ -137,41 +140,45 @@ export const Navbar = () => {
         )}
       </Box>
       <Spacer />
-      <Menu autoSelect={false}>
-        {authenticated && (
-          <Fragment>
-            <MenuButton as={Button} variant="ghost">
-              My Account
-            </MenuButton>
-            <MenuList>
-              <MenuItem>Account settings</MenuItem>
-              <MenuItem onClick={logout}>Log out</MenuItem>
-            </MenuList>
-          </Fragment>
-        )}
-        {!authenticated && (
-          <Fragment>
-            <MenuButton
-              as={Button}
-              variant="ghost"
+      {authenticated ? (
+        <Menu autoSelect={false}>
+          <MenuButton as={Button} variant="ghost">
+            My Account
+          </MenuButton>
+          <MenuList>
+            <MenuItem
+              onClick={() => {
+                window.location.href = "/account";
+              }}
+            >
+              Account settings
+            </MenuItem>
+            <MenuItem onClick={logout}>Log out</MenuItem>
+          </MenuList>
+        </Menu>
+      ) : (
+        <Menu autoSelect={false}>
+          <MenuButton as={Button} variant="ghost">
+            My Account
+          </MenuButton>
+          <MenuList>
+            <MenuItem
               onClick={() => {
                 window.location.href = "/login";
               }}
             >
               Log In
-            </MenuButton>
-            <MenuButton
-              as={Button}
-              variant="ghost"
+            </MenuItem>
+            <MenuItem
               onClick={() => {
                 window.location.href = "/signup";
               }}
             >
               Sign Up
-            </MenuButton>
-          </Fragment>
-        )}
-      </Menu>
+            </MenuItem>
+          </MenuList>
+        </Menu>
+      )}
     </Flex>
   );
 };
