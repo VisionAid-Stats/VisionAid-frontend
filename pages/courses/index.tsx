@@ -34,7 +34,6 @@ const Page: NextPage = () => {
         <Thead>
           <Tr>
             <Th>Course Code</Th>
-            <Th>Course ID</Th>
             <Th>Course Name</Th>
             <Th>Offered Online</Th>
             <Th>Offered Offline</Th>
@@ -46,7 +45,6 @@ const Page: NextPage = () => {
             return (
               <Tr key={index}>
                 <Td>{course.code}</Td>
-                <Td>{course.course_id}</Td>
                 <Td>{course.name}</Td>
                 <Td>{course.is_online === 1 ? <CheckIcon /> : ""}</Td>
                 <Td>{course.is_offline === 1 ? <CheckIcon /> : ""}</Td>

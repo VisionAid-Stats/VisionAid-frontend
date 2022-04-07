@@ -33,7 +33,6 @@ const Page: NextPage = () => {
       <Table>
         <Thead>
           <Tr>
-            <Th>Trainer ID</Th>
             <Th>Trainer Name</Th>
             <Th>Email</Th>
             <Th>Location</Th>
@@ -44,7 +43,6 @@ const Page: NextPage = () => {
           {data.map((trainer, index) => {
             return (
               <Tr key={index}>
-                <Td>{trainer.trainer_id}</Td>
                 <Td>{trainer.name}</Td>
                 <Td>{trainer.email}</Td>
                 <Td>{trainer.location || "?"}</Td>

@@ -32,14 +32,14 @@ const Page: NextPage = () => {
     }
   }, [id]);
 
-  const intialData = {
+  const initialData = {
     course_id: id,
     name: data.name,
     code: data.code,
     is_offline: data.is_offline === 1,
     is_online: data.is_online === 1,
   };
-
+  console.log(initialData);
   return (
     <Container>
       <Box>
@@ -48,7 +48,7 @@ const Page: NextPage = () => {
       <Stack>
         <Formik
           enableReinitialize
-          initialValues={intialData}
+          initialValues={initialData}
           onSubmit={(values) => {
             console.log(values);
             const response = fetch(`${API_PATH}/course/update`, {
@@ -56,9 +56,16 @@ const Page: NextPage = () => {
               headers: {
                 "Content-Type": "application/json",
               },
-              body: JSON.stringify(values),
+              body: JSON.stringify({
+                name: values.name,
+                code:
+                  values.code === initialData.code ? undefined : values.code,
+                course_id: id,
+                is_offline: values.is_offline,
+                is_online: values.is_online,
+              }),
             }).then((value) => {
-              //window.location.href = "/courses";
+              window.location.href = "/courses";
             });
           }}
         >
@@ -68,10 +75,22 @@ const Page: NextPage = () => {
                 <BasicInput id="name" label="Name" isRequired />
                 <BasicInput id="code" label="Course Code" isRequired />
                 <HStack>
-                  <Checkbox name="is_online" checked={values.is_online}>
+                  <Checkbox
+                    name="is_online"
+                    isChecked={values.is_online}
+                    onChange={(e) => {
+                      setFieldValue("is_online", e.target.checked);
+                    }}
+                  >
                     Online
                   </Checkbox>
-                  <Checkbox name="is_offline" checked={values.is_offline}>
+                  <Checkbox
+                    name="is_offline"
+                    isChecked={values.is_offline}
+                    onChange={(e) => {
+                      setFieldValue("is_offline", e.target.checked);
+                    }}
+                  >
                     Offline
                   </Checkbox>
                 </HStack>
