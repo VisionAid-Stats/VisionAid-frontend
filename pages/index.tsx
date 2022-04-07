@@ -12,8 +12,14 @@ const Page: NextPage = () => {
           helping people with visual impairments through offering courses that
           are taught with an emphasis on accessibility.
         </Text>
-        <Image src="banner.png" />
-        <Image src="wheel.png" />
+        <Image
+          src="banner.png"
+          alt="Vision-Aid serves the visually disadvantaged in under-served areas."
+        />
+        <Image
+          src="wheel.png"
+          alt="At Vision-Aid our goal is to enable, educate, and empower those with impaired vision."
+        />
       </Stack>
     </Container>
   );

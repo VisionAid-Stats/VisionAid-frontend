@@ -41,6 +41,7 @@ export const Navbar = () => {
             onClick={() => {
               window.location.href = "/";
             }}
+            alt="Vision-Aid Logo"
           />
         </ImageWrapper>
       </Box>
