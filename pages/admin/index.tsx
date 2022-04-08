@@ -12,52 +12,47 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react";
-import { EditIcon } from "@chakra-ui/icons";
+import { CheckIcon, EditIcon } from "@chakra-ui/icons";
 
-import { API_PATH } from "../../../common";
-import { ImageLinkWrapper } from "../../../components";
+import { API_PATH } from "../../common";
+import { ImageLinkWrapper } from "../../components";
 
 const Page: NextPage = () => {
   const [data, setData] = useState<any[]>([]);
   useEffect(() => {
-    fetch(`${API_PATH}/course_offering/get_all`)
+    fetch(`${API_PATH}/user/get_all`)
       .then((response) => response.json())
       .then((json) => setData(json));
   }, []);
-  console.log(data);
   return (
     <Container>
       <Box>
-        <Heading size="l">List of course offerings</Heading>
+        <Heading size="l">List of courses</Heading>
       </Box>
 
       <Table>
         <Thead>
           <Tr>
-            <Th>Centre Location</Th>
-            <Th>Course Code</Th>
-            <Th>Course Name</Th>
-            <Th>Program Manager</Th>
-            <Th>Trainer</Th>
-            <Th>Start Date</Th>
+            <Th>Name</Th>
+            <Th>Email</Th>
+            <Th>Admin</Th>
+            <Th>Enabled</Th>
             <Th>Edit</Th>
           </Tr>
         </Thead>
         <Tbody>
-          {data.map((course_offering, index) => {
+          {data.map((user, index) => {
             return (
               <Tr key={index}>
-                <Td>{course_offering.centre_location}</Td>
-                <Td>{course_offering.course_code}</Td>
-                <Td>{course_offering.course_name}</Td>
-                <Td>{course_offering.pm_name}</Td>
-                <Td>{course_offering.trainer_name}</Td>
-                <Td>{course_offering.start_date}</Td>
+                <Td>{user.name}</Td>
+                <Td>{user.email}</Td>
+                <Td>{user.is_admin === 1 ? <CheckIcon /> : ""}</Td>
+                <Td>{user.enabled === 1 ? <CheckIcon /> : ""}</Td>
                 <Td>
                   <ImageLinkWrapper>
                     <EditIcon
                       onClick={() => {
-                        window.location.href = `/courses/offering/edit/${course_offering.course_offering_id}`;
+                        window.location.href = `/admin/edit/${user.user_id}`;
                       }}
                     />
                   </ImageLinkWrapper>

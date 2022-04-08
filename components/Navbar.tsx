@@ -143,45 +143,70 @@ export const Navbar = () => {
         )}
       </Box>
       <Spacer />
-      {authenticated ? (
-        <Menu autoSelect={false}>
-          <MenuButton as={Button} variant="ghost">
-            My Account
-          </MenuButton>
-          <MenuList>
-            <MenuItem
-              onClick={() => {
-                window.location.href = "/account";
-              }}
-            >
-              Account settings
-            </MenuItem>
-            <MenuItem onClick={logout}>Log out</MenuItem>
-          </MenuList>
-        </Menu>
-      ) : (
-        <Menu autoSelect={false}>
-          <MenuButton as={Button} variant="ghost">
-            My Account
-          </MenuButton>
-          <MenuList>
-            <MenuItem
-              onClick={() => {
-                window.location.href = "/login";
-              }}
-            >
-              Log In
-            </MenuItem>
-            <MenuItem
-              onClick={() => {
-                window.location.href = "/signup";
-              }}
-            >
-              Sign Up
-            </MenuItem>
-          </MenuList>
-        </Menu>
-      )}
+      <Fragment>
+        {isAdmin && (
+          <Menu autoSelect={false}>
+            <MenuButton as={Button} variant="ghost">
+              Admin
+            </MenuButton>
+            <MenuList>
+              <MenuItem
+                onClick={() => {
+                  window.location.href = "/admin";
+                }}
+              >
+                Manage users
+              </MenuItem>
+              <MenuItem
+                onClick={() => {
+                  window.location.href = "/admin/createuser";
+                }}
+              >
+                Create user
+              </MenuItem>
+            </MenuList>
+          </Menu>
+        )}
+        {authenticated ? (
+          <Menu autoSelect={false}>
+            <MenuButton as={Button} variant="ghost">
+              My Account
+            </MenuButton>
+            <MenuList>
+              <MenuItem
+                onClick={() => {
+                  window.location.href = "/account";
+                }}
+              >
+                Account settings
+              </MenuItem>
+              <MenuItem onClick={logout}>Log out</MenuItem>
+            </MenuList>
+          </Menu>
+        ) : (
+          <Menu autoSelect={false}>
+            <MenuButton as={Button} variant="ghost">
+              My Account
+            </MenuButton>
+            <MenuList>
+              <MenuItem
+                onClick={() => {
+                  window.location.href = "/login";
+                }}
+              >
+                Log In
+              </MenuItem>
+              <MenuItem
+                onClick={() => {
+                  window.location.href = "/signup";
+                }}
+              >
+                Sign Up
+              </MenuItem>
+            </MenuList>
+          </Menu>
+        )}
+      </Fragment>
     </Flex>
   );
 };
