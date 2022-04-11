@@ -32,7 +32,6 @@ const Page: NextPage = () => {
     }
   }, [id]);
 
-  console.log(data);
   return (
     <Container>
       <Box>

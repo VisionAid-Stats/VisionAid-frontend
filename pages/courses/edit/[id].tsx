@@ -39,7 +39,6 @@ const Page: NextPage = () => {
     is_offline: data.is_offline === 1,
     is_online: data.is_online === 1,
   };
-  console.log(initialData);
   return (
     <Container>
       <Box>
@@ -50,7 +49,6 @@ const Page: NextPage = () => {
           enableReinitialize
           initialValues={initialData}
           onSubmit={(values) => {
-            console.log(values);
             const response = fetch(`${API_PATH}/course/update`, {
               method: "PUT",
               headers: {

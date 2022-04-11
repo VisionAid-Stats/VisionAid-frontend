@@ -30,7 +30,6 @@ const Page: NextPage = () => {
 
   const onLoginComplete = useCallback(
     (data) => {
-      console.log(data);
       if (data.success === true) {
         setCookie(TOKEN_NAME, data.token, { path: "/" });
       } else {

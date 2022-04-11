@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import type { NextPage } from "next";
-
 import {
   Box,
   Container,
@@ -12,52 +11,50 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react";
+
 import { EditIcon } from "@chakra-ui/icons";
 
-import { API_PATH } from "../../../common";
-import { ImageLinkWrapper } from "../../../components";
+import { API_PATH, useSession } from "../../../../common";
+import { ImageLinkWrapper } from "../../../../components";
 
 const Page: NextPage = () => {
   const [data, setData] = useState<any[]>([]);
+  const { userId } = useSession();
+
   useEffect(() => {
-    fetch(`${API_PATH}/course_offering/get_all`)
+    fetch(`${API_PATH}/course_offering/get_by_pm?pm_user_id=${userId}`)
       .then((response) => response.json())
       .then((json) => setData(json));
   }, []);
-
   return (
     <Container>
       <Box>
-        <Heading size="l">List of course offerings</Heading>
+        <Heading size="l">List of trainers</Heading>
       </Box>
 
       <Table>
         <Thead>
           <Tr>
-            <Th>Centre Location</Th>
-            <Th>Course Code</Th>
             <Th>Course Name</Th>
-            <Th>Program Manager</Th>
             <Th>Trainer</Th>
+            <Th>Centre</Th>
             <Th>Start Date</Th>
             <Th>Edit</Th>
           </Tr>
         </Thead>
         <Tbody>
-          {data.map((course_offering, index) => {
+          {data.map((course, index) => {
             return (
               <Tr key={index}>
-                <Td>{course_offering.centre_location}</Td>
-                <Td>{course_offering.course_code}</Td>
-                <Td>{course_offering.course_name}</Td>
-                <Td>{course_offering.pm_name}</Td>
-                <Td>{course_offering.trainer_name}</Td>
-                <Td>{course_offering.start_date}</Td>
+                <Td>{course.course_name}</Td>
+                <Td>{course.trainer_name}</Td>
+                <Td>{course.centre_location}</Td>
+                <Td>{course.start_date}</Td>
                 <Td>
                   <ImageLinkWrapper>
                     <EditIcon
                       onClick={() => {
-                        window.location.href = `/courses/offering/edit/${course_offering.course_offering_id}`;
+                        window.location.href = `/courses/offering/manage/${course.course_offering_id}`;
                       }}
                     />
                   </ImageLinkWrapper>

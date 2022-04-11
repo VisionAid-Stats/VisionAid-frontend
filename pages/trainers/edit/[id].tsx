@@ -46,7 +46,6 @@ const Page: NextPage = () => {
           enableReinitialize
           initialValues={intialData}
           onSubmit={(values) => {
-            console.log(values);
             const response = fetch(`${API_PATH}/trainer/update`, {
               method: "PUT",
               headers: {

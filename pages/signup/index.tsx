@@ -22,14 +22,15 @@ import { BasicInput, PasswordInput } from "../../components";
 
 const Page: NextPage = () => {
   const [showAlert, setShowAlert] = useState(false);
+  const [error, setError] = useState("");
 
   return (
     <Container>
       <Stack>
         {showAlert && (
-          <Alert status="success" variant="subtle">
+          <Alert status={error ? "error" : "success"} variant="subtle">
             <AlertIcon />
-            Account successfully created
+            {error ? error : "Account successfully created"}
             <CloseButton
               position="absolute"
               right="8px"
@@ -45,7 +46,7 @@ const Page: NextPage = () => {
         </Box>
         <Spacer />
         <Formik
-          initialValues={{ is_pm: true }}
+          initialValues={{ is_pm: true, is_admin: false }}
           onSubmit={(values) => {
             const response = fetch(`${API_PATH}/user/create`, {
               method: "POST",
@@ -53,10 +54,15 @@ const Page: NextPage = () => {
                 "Content-Type": "application/json",
               },
               body: JSON.stringify(values),
-            }).then((value) => {
-              window.scrollTo(0, 0);
-              setShowAlert(true);
-            });
+            })
+              .then((response) => response.json())
+              .then((value) => {
+                if (value.success !== "true") {
+                  setError(value.error);
+                }
+                window.scrollTo(0, 0);
+                setShowAlert(true);
+              });
           }}
         >
           {({ setFieldValue }) => (

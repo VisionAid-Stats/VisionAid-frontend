@@ -109,7 +109,6 @@ const Page: NextPage = () => {
       .then((json) => setCentreList(centreListTransformer(json)));
   }, []);
 
-  console.log(data);
   return (
     <Container>
       <Box>
@@ -126,7 +125,6 @@ const Page: NextPage = () => {
             centre_id: data.centre_id,
           }}
           onSubmit={(values) => {
-            console.log(values);
             const response = fetch(`${API_PATH}/course_offering/update`, {
               method: "PUT",
               headers: {

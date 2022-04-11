@@ -26,7 +26,7 @@ export const Navbar = () => {
   const { authenticated, isAdmin, userId } = useSession();
 
   const logout = useCallback(() => {
-    removeCookie(TOKEN_NAME);
+    removeCookie(TOKEN_NAME, { path: "/" });
     window.location.href = "/";
   }, [removeCookie]);
 
@@ -144,45 +144,60 @@ export const Navbar = () => {
       </Box>
       <Spacer />
       <Fragment>
-        {isAdmin && (
-          <Menu autoSelect={false}>
-            <MenuButton as={Button} variant="ghost">
-              Admin
-            </MenuButton>
-            <MenuList>
-              <MenuItem
-                onClick={() => {
-                  window.location.href = "/admin";
-                }}
-              >
-                Manage users
-              </MenuItem>
-              <MenuItem
-                onClick={() => {
-                  window.location.href = "/admin/createuser";
-                }}
-              >
-                Create user
-              </MenuItem>
-            </MenuList>
-          </Menu>
-        )}
         {authenticated ? (
-          <Menu autoSelect={false}>
-            <MenuButton as={Button} variant="ghost">
-              My Account
-            </MenuButton>
-            <MenuList>
-              <MenuItem
-                onClick={() => {
-                  window.location.href = "/account";
-                }}
-              >
-                Account settings
-              </MenuItem>
-              <MenuItem onClick={logout}>Log out</MenuItem>
-            </MenuList>
-          </Menu>
+          <Fragment>
+            {isAdmin ? (
+              <Menu autoSelect={false}>
+                <MenuButton as={Button} variant="ghost">
+                  Admin
+                </MenuButton>
+                <MenuList>
+                  <MenuItem
+                    onClick={() => {
+                      window.location.href = "/admin";
+                    }}
+                  >
+                    Manage users
+                  </MenuItem>
+                  <MenuItem
+                    onClick={() => {
+                      window.location.href = "/admin/createuser";
+                    }}
+                  >
+                    Create user
+                  </MenuItem>
+                </MenuList>
+              </Menu>
+            ) : (
+              <Menu autoSelect={false}>
+                <MenuButton
+                  as={Button}
+                  variant="ghost"
+                  onClick={() => {
+                    window.location.href = "/courses/offering/manage";
+                  }}
+                >
+                  My courses
+                </MenuButton>
+              </Menu>
+            )}
+
+            <Menu autoSelect={false}>
+              <MenuButton as={Button} variant="ghost">
+                My Account
+              </MenuButton>
+              <MenuList>
+                <MenuItem
+                  onClick={() => {
+                    window.location.href = "/account";
+                  }}
+                >
+                  Account settings
+                </MenuItem>
+                <MenuItem onClick={logout}>Log out</MenuItem>
+              </MenuList>
+            </Menu>
+          </Fragment>
         ) : (
           <Menu autoSelect={false}>
             <MenuButton as={Button} variant="ghost">
