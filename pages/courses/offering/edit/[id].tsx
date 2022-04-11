@@ -85,6 +85,20 @@ const Page: NextPage = () => {
   const [pmList, setPMList] = useState();
   const [centreList, setCentreList] = useState();
 
+  const deleteCourseOffering = () => {
+    fetch(`${API_PATH}/course_offering/delete`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ course_offering_id: id }),
+    })
+      .then((response) => response.json())
+      .then((json) => {
+        window.location.href = "/courses/offering";
+      });
+  };
+
   useEffect(() => {
     fetch(`${API_PATH}/course/get_all`)
       .then((response) => response.json())
@@ -170,9 +184,18 @@ const Page: NextPage = () => {
                   options={centreList}
                 />
 
-                <Button mt={4} colorScheme="teal" type="submit">
-                  Submit
-                </Button>
+                <HStack align="baseline">
+                  <Button mt={4} colorScheme="teal" type="submit">
+                    Submit
+                  </Button>
+                  <Button
+                    mt={4}
+                    colorScheme="red"
+                    onClick={deleteCourseOffering}
+                  >
+                    Delete
+                  </Button>
+                </HStack>
                 <Spacer />
               </VStack>
             </Form>

@@ -7,6 +7,7 @@ import {
   Button,
   Container,
   Heading,
+  HStack,
   Spacer,
   Stack,
   VStack,
@@ -28,6 +29,20 @@ const Page: NextPage = () => {
         .then((json) => setData(json[0]));
     }
   }, [id]);
+
+  const deleteTrainer = () => {
+    fetch(`${API_PATH}/trainer/delete`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ trainer_id: id }),
+    })
+      .then((response) => response.json())
+      .then((json) => {
+        window.location.href = "/trainers";
+      });
+  };
 
   const intialData = {
     trainer_id: id,
@@ -64,9 +79,14 @@ const Page: NextPage = () => {
                 <BasicInput id="email" label="Email" isRequired />
                 <BasicInput id="location" label="Location" />
 
-                <Button mt={4} colorScheme="teal" type="submit">
-                  Submit
-                </Button>
+                <HStack align="baseline">
+                  <Button mt={4} colorScheme="teal" type="submit">
+                    Submit
+                  </Button>
+                  <Button mt={4} colorScheme="red" onClick={deleteTrainer}>
+                    Delete
+                  </Button>
+                </HStack>
                 <Spacer />
               </VStack>
             </Form>

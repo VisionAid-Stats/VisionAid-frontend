@@ -32,6 +32,20 @@ const Page: NextPage = () => {
     }
   }, [id]);
 
+  const deleteCourse = () => {
+    fetch(`${API_PATH}/course/delete`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ course_id: id }),
+    })
+      .then((response) => response.json())
+      .then((json) => {
+        window.location.href = "/courses";
+      });
+  };
+
   const initialData = {
     course_id: id,
     name: data.name,
@@ -93,9 +107,14 @@ const Page: NextPage = () => {
                   </Checkbox>
                 </HStack>
 
-                <Button mt={4} colorScheme="teal" type="submit">
-                  Submit
-                </Button>
+                <HStack align="baseline">
+                  <Button mt={4} colorScheme="teal" type="submit">
+                    Submit
+                  </Button>
+                  <Button mt={4} colorScheme="red" onClick={deleteCourse}>
+                    Delete
+                  </Button>
+                </HStack>
                 <Spacer />
               </VStack>
             </Form>
