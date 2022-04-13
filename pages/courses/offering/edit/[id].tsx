@@ -86,12 +86,8 @@ const Page: NextPage = () => {
   const [centreList, setCentreList] = useState();
 
   const deleteCourseOffering = () => {
-    fetch(`${API_PATH}/course_offering/delete`, {
+    fetch(`${API_PATH}/course_offering/delete?course_offering_id=${id}`, {
       method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ course_offering_id: id }),
     })
       .then((response) => response.json())
       .then((json) => {

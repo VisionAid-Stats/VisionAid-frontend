@@ -31,12 +31,8 @@ const Page: NextPage = () => {
   }, [id]);
 
   const deleteTrainer = () => {
-    fetch(`${API_PATH}/trainer/delete`, {
+    fetch(`${API_PATH}/trainer/delete?trainer_id=${id}`, {
       method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ trainer_id: id }),
     })
       .then((response) => response.json())
       .then((json) => {

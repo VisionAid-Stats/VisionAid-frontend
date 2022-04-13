@@ -33,12 +33,8 @@ const Page: NextPage = () => {
   }, [id]);
 
   const deleteCourse = () => {
-    fetch(`${API_PATH}/course/delete`, {
+    fetch(`${API_PATH}/course/delete?course_id=${id}`, {
       method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ course_id: id }),
     })
       .then((response) => response.json())
       .then((json) => {
