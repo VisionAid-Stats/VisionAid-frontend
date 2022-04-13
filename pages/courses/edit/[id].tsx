@@ -6,7 +6,6 @@ import {
   Box,
   Button,
   Checkbox,
-  CheckboxGroup,
   Container,
   Heading,
   HStack,
