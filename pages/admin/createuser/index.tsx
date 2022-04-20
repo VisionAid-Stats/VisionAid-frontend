@@ -76,7 +76,7 @@ const Page: NextPage = () => {
                     setFieldValue("is_admin", e.target.checked);
                   }}
                 >
-                  Create user with admin privelege
+                  Create user with admin privilege
                 </Checkbox>
 
                 <Button mt={4} colorScheme="teal" type="submit">
