@@ -17,7 +17,7 @@ import {
 
 import { API_PATH } from "../../../common";
 import { Formik, Form } from "formik";
-import { BasicInput } from "../../../components";
+import { BasicInput, PasswordInput } from "../../../components";
 
 const Page: NextPage = () => {
   const router = useRouter();
@@ -72,6 +72,11 @@ const Page: NextPage = () => {
                 >
                   Enabled
                 </Checkbox>
+                <PasswordInput
+                  id="password"
+                  label="New Password"
+                  isRequired={false}
+                />
 
                 <Button mt={4} colorScheme="teal" type="submit">
                   Submit
