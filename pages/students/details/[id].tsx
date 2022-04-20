@@ -12,9 +12,10 @@ import {
   Tr,
 } from "@chakra-ui/react";
 
-import { API_PATH } from "../../../common";
+import { API_PATH, useAuth } from "../../../common";
 
 const Page: NextPage = () => {
+  useAuth("PM");
   const router = useRouter();
   const { id } = router.query;
 

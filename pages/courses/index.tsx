@@ -14,10 +14,11 @@ import {
 } from "@chakra-ui/react";
 import { CheckIcon, EditIcon } from "@chakra-ui/icons";
 
-import { API_PATH } from "../../common";
+import { API_PATH, useAuth } from "../../common";
 import { ImageLinkWrapper } from "../../components";
 
 const Page: NextPage = () => {
+  useAuth("ADMIN");
   const [data, setData] = useState<any[]>([]);
   useEffect(() => {
     fetch(`${API_PATH}/course/get_all`)

@@ -22,9 +22,10 @@ import {
 import { Field, Form, Formik } from "formik";
 
 import { BasicInput, SelectInput } from "../../components";
-import { API_PATH } from "../../common";
+import { API_PATH, useAuth } from "../../common";
 
 const Page: NextPage = () => {
+  useAuth("ALL");
   const [showAlert, setShowAlert] = useState(false);
 
   return (

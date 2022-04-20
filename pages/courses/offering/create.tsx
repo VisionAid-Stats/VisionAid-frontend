@@ -16,7 +16,7 @@ import {
 } from "@chakra-ui/react";
 
 import { SelectInput } from "../../../components";
-import { API_PATH } from "../../../common";
+import { API_PATH, useAuth } from "../../../common";
 
 const courseListTransformer = (courses) => {
   if (!!courses) {
@@ -67,6 +67,7 @@ const centreListTransformer = (centres) => {
 };
 
 const Page: NextPage = () => {
+  useAuth("PM");
   const [showAlert, setShowAlert] = useState(false);
 
   const [courseList, setCourseList] = useState();

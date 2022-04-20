@@ -14,11 +14,12 @@ import {
   VStack,
 } from "@chakra-ui/react";
 
-import { API_PATH } from "../../../common";
+import { API_PATH, useAuth } from "../../../common";
 import { Formik, Form } from "formik";
 import { BasicInput } from "../../../components";
 
 const Page: NextPage = () => {
+  useAuth("ADMIN");
   const router = useRouter();
   const { id } = router.query;
 

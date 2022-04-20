@@ -14,10 +14,11 @@ import {
 
 import { EditIcon, InfoOutlineIcon } from "@chakra-ui/icons";
 
-import { API_PATH, useSession } from "../../../../common";
+import { API_PATH, useAuth, useSession } from "../../../../common";
 import { ImageLinkWrapper } from "../../../../components";
 
 const Page: NextPage = () => {
+  useAuth("PM");
   const [data, setData] = useState<any[]>([]);
   const { userId } = useSession();
 

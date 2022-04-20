@@ -1,5 +1,6 @@
 import { useCookies } from "react-cookie";
 import jwtDecode from "jwt-decode";
+import { useEffect } from "react";
 
 export const TOKEN_NAME = "vision_aid_session";
 export const API_PATH = "https://api.visionaid-stats.com";
@@ -97,14 +98,17 @@ export function useAuth(pageAccess : "ADMIN" | "PM" | "ALL") {
   const session : any = cookie.vision_aid_session
     ? jwtDecode(cookie.vision_aid_session)
     : {};
-  
-  if (Object.keys(session).length !== 0) {
-    if (session.is_admin !== 1 && pageAccess === "ADMIN") {
-      window.location.href = "/";
+
+  useEffect(() => {
+    if (Object.keys(session).length !== 0) {
+      if (session.is_admin !== 1 && pageAccess === "ADMIN") {
+        window.location.href = "/";
+      }
+    } else {
+      if (pageAccess !== "ALL") {
+        window.location.href = "/";
+      }
     }
-  } else {
-    if (pageAccess !== "ALL") {
-      window.location.href = "/";
-    }
-  }
+  });
+
 }

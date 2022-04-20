@@ -16,10 +16,11 @@ import {
   VStack,
 } from "@chakra-ui/react";
 
-import { API_PATH, useSession, TOKEN_NAME } from "../../common";
+import { API_PATH, useSession, TOKEN_NAME, useAuth } from "../../common";
 import { BasicInput, PasswordInput } from "../../components";
 
 const Page: NextPage = () => {
+  useAuth("PM");
   const [_cookie, _setCookie, removeCookie] = useCookies([TOKEN_NAME]);
   const [showAlert, setShowAlert] = useState(false);
 

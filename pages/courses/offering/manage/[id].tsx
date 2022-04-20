@@ -18,7 +18,7 @@ import {
 
 import { SmallCloseIcon } from "@chakra-ui/icons";
 
-import { API_PATH } from "../../../../common";
+import { API_PATH, useAuth } from "../../../../common";
 import { ImageLinkWrapper, SelectInput } from "../../../../components";
 import { Formik, Form } from "formik";
 
@@ -35,6 +35,7 @@ const studentListTransformer = (students) => {
 };
 
 const Page: NextPage = () => {
+  useAuth("PM");
   const router = useRouter();
   const { id } = router.query;
   const [courseOffering, setCourseOffering] = useState<any[]>([]);

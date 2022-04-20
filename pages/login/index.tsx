@@ -15,10 +15,11 @@ import {
   CloseButton,
 } from "@chakra-ui/react";
 
-import { API_PATH, TOKEN_NAME } from "../../common";
+import { API_PATH, TOKEN_NAME, useAuth } from "../../common";
 import { BasicInput, PasswordInput } from "../../components";
 
 const Page: NextPage = () => {
+  useAuth("ALL");
   const [showAlert, setShowAlert] = useState(false);
   const [cookie, setCookie] = useCookies([TOKEN_NAME]);
 

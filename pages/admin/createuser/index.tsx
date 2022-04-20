@@ -17,10 +17,11 @@ import {
   Checkbox,
 } from "@chakra-ui/react";
 
-import { API_PATH } from "../../../common";
+import { API_PATH, useAuth } from "../../../common";
 import { BasicInput, PasswordInput } from "../../../components";
 
 const Page: NextPage = () => {
+  useAuth("ADMIN");
   const [showAlert, setShowAlert] = useState(false);
 
   return (

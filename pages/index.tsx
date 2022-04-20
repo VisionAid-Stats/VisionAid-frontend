@@ -1,8 +1,10 @@
 import React from "react";
 import type { NextPage } from "next";
 import { Container, Text, Stack, Image } from "@chakra-ui/react";
+import { useAuth } from "../common";
 
 const Page: NextPage = () => {
+  useAuth("ALL");
   return (
     <Container>
       <Stack>
