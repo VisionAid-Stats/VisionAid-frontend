@@ -45,7 +45,7 @@ const Page: NextPage = () => {
         </Box>
         <Spacer />
         <Formik
-          initialValues={{ is_pm: true }}
+          initialValues={{ is_pm: true, is_admin: false }}
           onSubmit={(values) => {
             const response = fetch(`${API_PATH}/user/create`, {
               method: "POST",
@@ -59,7 +59,7 @@ const Page: NextPage = () => {
             });
           }}
         >
-          {({ setFieldValue }) => (
+          {({ setFieldValue, values }) => (
             <Form>
               <Stack spacing={10} align="flex-start">
                 <BasicInput id="email" label="Email" isRequired />
@@ -67,6 +67,16 @@ const Page: NextPage = () => {
                 <BasicInput id="name" label="Name" isRequired />
 
                 <PasswordInput id="password" label="Password" />
+
+                <Checkbox
+                  name="is_admin"
+                  isChecked={values.is_admin}
+                  onChange={(e) => {
+                    setFieldValue("is_admin", e.target.checked);
+                  }}
+                >
+                  Create user with admin privelege
+                </Checkbox>
 
                 <Button mt={4} colorScheme="teal" type="submit">
                   Create

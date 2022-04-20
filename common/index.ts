@@ -91,3 +91,20 @@ export function useSession() {
     email: session.email,
   }
 }
+
+export function useAuth(pageAccess : "ADMIN" | "PM" | "ALL") {
+  const [cookie] = useCookies([TOKEN_NAME]);
+  const session : any = cookie.vision_aid_session
+    ? jwtDecode(cookie.vision_aid_session)
+    : {};
+  
+  if (Object.keys(session).length !== 0) {
+    if (session.is_admin !== 1 && pageAccess === "ADMIN") {
+      window.location.href = "/";
+    }
+  } else {
+    if (pageAccess !== "ALL") {
+      window.location.href = "/";
+    }
+  }
+}
