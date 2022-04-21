@@ -4,8 +4,10 @@ import { useRouter } from "next/router";
 
 import {
   Box,
+  Button,
   Container,
   Heading,
+  HStack,
   Table,
   Tbody,
   Td,
@@ -30,7 +32,18 @@ const Page: NextPage = () => {
   return (
     <Container>
       <Box>
-        <Heading size="l">Details for {data.name}</Heading>
+        <HStack>
+          <Heading size="l">Details for {data.name}</Heading>
+          <Button
+            mt={4}
+            colorScheme="teal"
+            onClick={() => {
+              window.location.href = `/students/edit/${id}`;
+            }}
+          >
+            Edit
+          </Button>
+        </HStack>
       </Box>
       <Table>
         <Tbody>
