@@ -29,12 +29,13 @@ const Page: NextPage = () => {
   return (
     <Container>
       <Box>
-        <Heading size="l">List of course offerings</Heading>
+        <Heading size="l">List of course batches</Heading>
       </Box>
 
       <Table>
         <Thead>
           <Tr>
+            <Th>Batch</Th>
             <Th>Centre Location</Th>
             <Th>Course Code</Th>
             <Th>Course Name</Th>
@@ -48,6 +49,7 @@ const Page: NextPage = () => {
           {data.map((course_offering, index) => {
             return (
               <Tr key={index}>
+                <Td>{course_offering.batch}</Td>
                 <Td>{course_offering.centre_location}</Td>
                 <Td>{course_offering.course_code}</Td>
                 <Td>{course_offering.course_name}</Td>

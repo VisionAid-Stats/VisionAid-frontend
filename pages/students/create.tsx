@@ -32,9 +32,9 @@ const Page: NextPage = () => {
     <Container>
       <Stack>
         {showAlert && (
-          <Alert status="success" variant="subtle">
+          <Alert status="error" variant="subtle">
             <AlertIcon />
-            Course offering successfully created
+            An error occurred, please try again later
             <CloseButton
               position="absolute"
               right="8px"
@@ -47,7 +47,7 @@ const Page: NextPage = () => {
         )}
 
         <Box>
-          <Heading size="l">Add student</Heading>
+          <Heading size="l">Student Application Form</Heading>
         </Box>
         <Spacer />
         <Formik
@@ -59,10 +59,16 @@ const Page: NextPage = () => {
                 "Content-Type": "application/json",
               },
               body: JSON.stringify(values),
-            }).then((value) => {
-              window.scrollTo(0, 0);
-              setShowAlert(true);
-            });
+            })
+              .then((response) => response.json())
+              .then((value) => {
+                if (value.success) {
+                  window.location.href = `/students/interests/${value.student_id}`;
+                } else {
+                  window.scrollTo(0, 0);
+                  setShowAlert(true);
+                }
+              });
           }}
         >
           {({ setFieldValue }) => (
@@ -73,23 +79,6 @@ const Page: NextPage = () => {
                 <BasicInput id="name" label="Name" isRequired />
 
                 <BasicInput id="mobile" label="Mobile Number" isRequired />
-
-                <BasicInput id="address" label="Address" isRequired />
-
-                <Field name="age">
-                  {({ field }) => (
-                    <FormControl isRequired>
-                      <FormLabel htmlFor="age">Age</FormLabel>
-                      <NumberInput step={1} id="age" width={100}>
-                        <NumberInputField {...field} />
-                        <NumberInputStepper>
-                          <NumberIncrementStepper />
-                          <NumberDecrementStepper />
-                        </NumberInputStepper>
-                      </NumberInput>
-                    </FormControl>
-                  )}
-                </Field>
 
                 <SelectInput
                   id="gender"
@@ -112,28 +101,74 @@ const Page: NextPage = () => {
                   ]}
                 />
 
-                <SelectInput
-                  id="visual_acuity"
-                  label="Visual Acuity"
-                  placeholder="Select visual acuity..."
+                <Field name="age">
+                  {({ field }) => (
+                    <FormControl isRequired>
+                      <FormLabel htmlFor="age">Age</FormLabel>
+                      <NumberInput
+                        step={1}
+                        id="age"
+                        width={100}
+                        min={0}
+                        clampValueOnBlur
+                      >
+                        <NumberInputField {...field} />
+                        <NumberInputStepper>
+                          <NumberIncrementStepper />
+                          <NumberDecrementStepper />
+                        </NumberInputStepper>
+                      </NumberInput>
+                    </FormControl>
+                  )}
+                </Field>
+
+                <BasicInput
+                  id="address"
+                  label="What city and state are you from?"
                   isRequired
-                  options={[
-                    {
-                      value: "fully blind",
-                      label: "Fully blind",
-                    },
-                    {
-                      value: "low vision",
-                      label: "Low vision",
-                    },
-                  ]}
+                />
+
+                <BasicInput
+                  id="learning_objectives"
+                  label="What are your long term learning objectives?"
+                  isRequired={false}
                 />
 
                 <BasicInput
                   id="visual_impairment"
-                  label="Visual Impairment"
+                  label="Provide a brief history of your vision impairment"
                   isRequired
                 />
+
+                <BasicInput
+                  id="usable_vision"
+                  label="What is your usable vision in terms of acuity and field?"
+                  isRequired={false}
+                />
+
+                <Field name="pct_vision_loss">
+                  {({ field }) => (
+                    <FormControl isRequired>
+                      <FormLabel htmlFor="pct_vision_loss">
+                        What is the percentage of vision loss?
+                      </FormLabel>
+                      <NumberInput
+                        step={10}
+                        id="pct_vision_loss"
+                        width={100}
+                        min={0}
+                        max={100}
+                        clampValueOnBlur
+                      >
+                        <NumberInputField {...field} />
+                        <NumberInputStepper>
+                          <NumberIncrementStepper />
+                          <NumberDecrementStepper />
+                        </NumberInputStepper>
+                      </NumberInput>
+                    </FormControl>
+                  )}
+                </Field>
 
                 <BasicInput
                   id="hear_about"

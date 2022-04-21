@@ -45,6 +45,7 @@ const Page: NextPage = () => {
             user_id: data.user_id,
             name: data.name,
             email: data.email,
+            is_admin: data.is_admin,
             enabled: data.enabled,
           }}
           onSubmit={(values) => {
@@ -64,6 +65,15 @@ const Page: NextPage = () => {
               <VStack spacing={10} align="flex-start">
                 <BasicInput id="name" label="Name" isRequired />
                 <BasicInput id="email" label="Email" isRequired />
+                <Checkbox
+                  name="is_admin"
+                  isChecked={values.is_admin}
+                  onChange={(e) => {
+                    setFieldValue("is_admin", e.target.checked);
+                  }}
+                >
+                  Admin
+                </Checkbox>
                 <Checkbox
                   name="is_online"
                   isChecked={values.enabled}

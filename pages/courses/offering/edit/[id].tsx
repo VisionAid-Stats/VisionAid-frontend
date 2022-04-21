@@ -123,7 +123,7 @@ const Page: NextPage = () => {
   return (
     <Container>
       <Box>
-        <Heading size="l">Edit Course Offering</Heading>
+        <Heading size="l">Edit Course Batch</Heading>
       </Box>
       <Stack>
         <Formik

@@ -54,29 +54,31 @@ export const Navbar = () => {
         >
           Home
         </Button>
+        <Menu autoSelect={false}>
+          <MenuButton as={Button} variant="ghost">
+            Students
+          </MenuButton>
+          <MenuList>
+            {authenticated && (
+              <MenuItem
+                onClick={() => {
+                  window.location.href = "/students";
+                }}
+              >
+                List students
+              </MenuItem>
+            )}
+            <MenuItem
+              onClick={() => {
+                window.location.href = "/students/create";
+              }}
+            >
+              Student Application Form
+            </MenuItem>
+          </MenuList>
+        </Menu>
         {authenticated && (
           <Fragment>
-            <Menu autoSelect={false}>
-              <MenuButton as={Button} variant="ghost">
-                Students
-              </MenuButton>
-              <MenuList>
-                <MenuItem
-                  onClick={() => {
-                    window.location.href = "/students";
-                  }}
-                >
-                  List students
-                </MenuItem>
-                <MenuItem
-                  onClick={() => {
-                    window.location.href = "/students/create";
-                  }}
-                >
-                  Add a student
-                </MenuItem>
-              </MenuList>
-            </Menu>
             <Menu autoSelect={false}>
               <MenuButton as={Button} variant="ghost">
                 Courses
@@ -87,14 +89,14 @@ export const Navbar = () => {
                     window.location.href = "/courses/offering";
                   }}
                 >
-                  List course offerings
+                  List course batches
                 </MenuItem>
                 <MenuItem
                   onClick={() => {
                     window.location.href = "/courses/offering/create";
                   }}
                 >
-                  Add a course offering
+                  Add a course batch
                 </MenuItem>
                 {isAdmin && (
                   <Fragment>
@@ -116,29 +118,6 @@ export const Navbar = () => {
                 )}
               </MenuList>
             </Menu>
-            {isAdmin && (
-              <Menu autoSelect={false}>
-                <MenuButton as={Button} variant="ghost">
-                  Trainers
-                </MenuButton>
-                <MenuList>
-                  <MenuItem
-                    onClick={() => {
-                      window.location.href = "/trainers";
-                    }}
-                  >
-                    List trainers
-                  </MenuItem>
-                  <MenuItem
-                    onClick={() => {
-                      window.location.href = "/trainers/create";
-                    }}
-                  >
-                    Add a trainer
-                  </MenuItem>
-                </MenuList>
-              </Menu>
-            )}
           </Fragment>
         )}
       </Box>
@@ -165,6 +144,20 @@ export const Navbar = () => {
                     }}
                   >
                     Create user
+                  </MenuItem>
+                  <MenuItem
+                    onClick={() => {
+                      window.location.href = "/trainers";
+                    }}
+                  >
+                    List trainers
+                  </MenuItem>
+                  <MenuItem
+                    onClick={() => {
+                      window.location.href = "/trainers/create";
+                    }}
+                  >
+                    Add a trainer
                   </MenuItem>
                 </MenuList>
               </Menu>

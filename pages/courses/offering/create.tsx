@@ -105,7 +105,7 @@ const Page: NextPage = () => {
         {showAlert && (
           <Alert status="success" variant="subtle">
             <AlertIcon />
-            Course offering successfully created
+            Course batch successfully created
             <CloseButton
               position="absolute"
               right="8px"
@@ -117,7 +117,7 @@ const Page: NextPage = () => {
           </Alert>
         )}
         <Box>
-          <Heading size="l">Add a course offering</Heading>
+          <Heading size="l">Add a course batch</Heading>
         </Box>
         <Spacer />
         <Formik

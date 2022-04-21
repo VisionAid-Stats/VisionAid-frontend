@@ -82,17 +82,23 @@ const Page: NextPage = () => {
           enableReinitialize
           initialValues={{
             course_offering_id: id,
+            student_id: undefined,
           }}
           onSubmit={(values) => {
-            const response = fetch(`${API_PATH}/course_offering/add_student`, {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify(values),
-            }).then((value) => {
-              window.location.reload();
-            });
+            if (!!values.student_id) {
+              const response = fetch(
+                `${API_PATH}/course_offering/add_student`,
+                {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify(values),
+                }
+              ).then((value) => {
+                window.location.reload();
+              });
+            }
           }}
         >
           {({ setFieldValue, values }) => (
@@ -103,6 +109,7 @@ const Page: NextPage = () => {
                   label=""
                   isRequired={false}
                   options={studentList}
+                  placeholder={"Select student to add..."}
                 />
                 <Button mt={4} colorScheme="teal" type="submit">
                   Add
