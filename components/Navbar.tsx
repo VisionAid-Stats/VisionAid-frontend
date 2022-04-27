@@ -159,6 +159,20 @@ export const Navbar = () => {
                   >
                     Add a trainer
                   </MenuItem>
+                  <MenuItem
+                    onClick={() => {
+                      window.location.href = "/centres";
+                    }}
+                  >
+                    List centres
+                  </MenuItem>
+                  <MenuItem
+                    onClick={() => {
+                      window.location.href = "/centres/create";
+                    }}
+                  >
+                    Add a centre
+                  </MenuItem>
                 </MenuList>
               </Menu>
             ) : (

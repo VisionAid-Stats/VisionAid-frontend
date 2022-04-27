@@ -29,7 +29,7 @@ const Page: NextPage = () => {
         {showAlert && (
           <Alert status="success" variant="subtle">
             <AlertIcon />
-            Trainer successfully created
+            Centre successfully created
             <CloseButton
               position="absolute"
               right="8px"
@@ -41,13 +41,13 @@ const Page: NextPage = () => {
           </Alert>
         )}
         <Box>
-          <Heading size="l">Add a trainer</Heading>
+          <Heading size="l">Add a centre</Heading>
         </Box>
         <Spacer />
         <Formik
           initialValues={{}}
           onSubmit={(values) => {
-            const response = fetch(`${API_PATH}/trainer/create`, {
+            const response = fetch(`${API_PATH}/centre/create`, {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
@@ -62,10 +62,7 @@ const Page: NextPage = () => {
           {({ setFieldValue }) => (
             <Form>
               <VStack spacing={10} align="flex-start">
-                <BasicInput id="name" label="Trainer Name" isRequired />
-                <BasicInput id="email" label="Trainer Email" isRequired />
-                <BasicInput id="location" label="Location" isRequired />
-
+                <BasicInput id="location" label="Centre Location" isRequired />
                 <Button mt={4} colorScheme="teal" type="submit">
                   Submit
                 </Button>

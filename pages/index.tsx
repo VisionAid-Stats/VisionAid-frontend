@@ -1,29 +1,30 @@
-import React from "react";
+import React, { Fragment } from "react";
 import type { NextPage } from "next";
-import { Container, Text, Stack, Image } from "@chakra-ui/react";
+import { Container, Text, Stack, Image, Spacer } from "@chakra-ui/react";
 import { useAuth } from "../common";
 
 const Page: NextPage = () => {
   useAuth("ALL");
   return (
-    <Container>
-      <Stack>
-        <Text fontSize="xx-large">About us</Text>
-        <Text fontSize="medium">
-          Vision-Aid Academy is a nonprofit organization that specializes in
-          helping people with visual impairments through offering courses that
-          are taught with an emphasis on accessibility.
-        </Text>
-        <Image
-          src="banner.png"
-          alt="Vision-Aid serves the visually disadvantaged in under-served areas."
-        />
-        <Image
-          src="wheel.png"
-          alt="At Vision-Aid our goal is to enable, educate, and empower those with impaired vision."
-        />
-      </Stack>
-    </Container>
+    <Stack alignItems={"center"}>
+      <Container>
+        <Stack>
+          <Text fontSize="xx-large">About us</Text>
+          <Text fontSize="medium">
+            Vision-Aid Academy is a nonprofit organization that specializes in
+            helping people with visual impairments through offering courses that
+            are taught with an emphasis on accessibility.
+          </Text>
+        </Stack>
+      </Container>
+      <Spacer />
+      <Image
+        src="landing.png"
+        alt="Vision-Aid serves the visually disadvantaged in under-served areas."
+        width={1280}
+        height={720}
+      />
+    </Stack>
   );
 };
 
