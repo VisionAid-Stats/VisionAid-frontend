@@ -172,7 +172,7 @@ const Page: NextPage = () => {
 
                 <BasicInput
                   id="hear_about"
-                  label="How did you hear about us?"
+                  label="How did you hear about the program?"
                   isRequired
                 />
 

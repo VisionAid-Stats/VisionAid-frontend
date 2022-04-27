@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import type { NextPage } from "next";
-import { Formik, Form } from "formik";
+import { Formik, Form, Field } from "formik";
 
 import {
   Container,
@@ -13,9 +13,17 @@ import {
   Alert,
   AlertIcon,
   CloseButton,
+  FormControl,
+  FormLabel,
+  Input,
+  NumberDecrementStepper,
+  NumberIncrementStepper,
+  NumberInput,
+  NumberInputField,
+  NumberInputStepper,
 } from "@chakra-ui/react";
 
-import { SelectInput } from "../../../components";
+import { BasicInput, SelectInput } from "../../../components";
 import { API_PATH, useAuth } from "../../../common";
 
 const courseListTransformer = (courses) => {
@@ -169,6 +177,53 @@ const Page: NextPage = () => {
                   isRequired
                   options={centreList}
                 />
+
+                <Box>
+                  <Field name={"start_date"}>
+                    {({ field }) => (
+                      <FormControl isRequired>
+                        <FormLabel htmlFor={"start_date"}>Start Date</FormLabel>
+                        <Input id={"start_date"} {...field} type="date" />
+                      </FormControl>
+                    )}
+                  </Field>
+                </Box>
+
+                <Box>
+                  <Field name={"end_date"}>
+                    {({ field }) => (
+                      <FormControl isRequired>
+                        <FormLabel htmlFor={"end_date"}>End Date</FormLabel>
+                        <Input id={"end_date"} {...field} type="date" />
+                      </FormControl>
+                    )}
+                  </Field>
+                </Box>
+
+                <BasicInput id="frequency" label="Frequency" isRequired />
+
+                <BasicInput id="duration" label="Duration" isRequired />
+
+                <Field name="max_students">
+                  {({ field }) => (
+                    <FormControl isRequired>
+                      <FormLabel htmlFor="max_students">Max Students</FormLabel>
+                      <NumberInput
+                        step={1}
+                        id="max_students"
+                        width={100}
+                        min={0}
+                        clampValueOnBlur
+                      >
+                        <NumberInputField {...field} />
+                        <NumberInputStepper>
+                          <NumberIncrementStepper />
+                          <NumberDecrementStepper />
+                        </NumberInputStepper>
+                      </NumberInput>
+                    </FormControl>
+                  )}
+                </Field>
 
                 <Button mt={4} colorScheme="teal" type="submit">
                   Submit
