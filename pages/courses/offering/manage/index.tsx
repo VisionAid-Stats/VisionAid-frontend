@@ -12,7 +12,12 @@ import {
   Tr,
 } from "@chakra-ui/react";
 
-import { EditIcon, InfoOutlineIcon } from "@chakra-ui/icons";
+import {
+  EditIcon,
+  InfoOutlineIcon,
+  CheckIcon,
+  StarIcon,
+} from "@chakra-ui/icons";
 
 import { API_PATH, useAuth, useSession } from "../../../../common";
 import { ImageLinkWrapper } from "../../../../components";
@@ -42,7 +47,9 @@ const Page: NextPage = () => {
             <Th>Centre</Th>
             <Th>Start Date</Th>
             <Th>Edit</Th>
-            <Th>List students</Th>
+            <Th>Students</Th>
+            <Th>Checklist</Th>
+            <Th>Graduation</Th>
           </Tr>
         </Thead>
         <Tbody>
@@ -68,6 +75,24 @@ const Page: NextPage = () => {
                     <InfoOutlineIcon
                       onClick={() => {
                         window.location.href = `/courses/offering/manage/${course.course_offering_id}`;
+                      }}
+                    />
+                  </ImageLinkWrapper>
+                </Td>
+                <Td>
+                  <ImageLinkWrapper>
+                    <CheckIcon
+                      onClick={() => {
+                        window.location.href = `/courses/offering/manage/checklists/${course.course_offering_id}`;
+                      }}
+                    />
+                  </ImageLinkWrapper>
+                </Td>
+                <Td>
+                  <ImageLinkWrapper>
+                    <StarIcon
+                      onClick={() => {
+                        window.location.href = `/courses/offering/manage/graduation/${course.course_offering_id}`;
                       }}
                     />
                   </ImageLinkWrapper>

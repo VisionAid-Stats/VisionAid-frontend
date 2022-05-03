@@ -50,7 +50,7 @@ const Page: NextPage = () => {
         </Box>
         <Spacer />
         <Formik
-          initialValues={{ age: 0 }}
+          initialValues={{}}
           onSubmit={(values) => {
             const response = fetch(`${API_PATH}/student/create`, {
               method: "POST",
