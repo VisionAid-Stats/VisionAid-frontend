@@ -21,6 +21,7 @@ import { BasicInput, PasswordInput } from "../../components";
 const Page: NextPage = () => {
   useAuth("ALL");
   const [showAlert, setShowAlert] = useState(false);
+  const [error, setError] = useState("Login failed, please try again");
   const [cookie, setCookie] = useCookies([TOKEN_NAME]);
 
   useEffect(() => {
@@ -34,6 +35,7 @@ const Page: NextPage = () => {
       if (data.success === true) {
         setCookie(TOKEN_NAME, data.token, { path: "/" });
       } else {
+        setError(data.error);
         setShowAlert(true);
       }
     },
@@ -46,7 +48,7 @@ const Page: NextPage = () => {
         {showAlert && (
           <Alert status="error" variant="subtle">
             <AlertIcon />
-            Login failed, please try again
+            {error}
             <CloseButton
               position="absolute"
               right="8px"

@@ -55,8 +55,7 @@ const Page: NextPage = () => {
               },
               body: JSON.stringify(values),
             }).then((value) => {
-              window.scrollTo(0, 0);
-              setShowAlert(true);
+              window.location.href = "/admin";
             });
           }}
         >

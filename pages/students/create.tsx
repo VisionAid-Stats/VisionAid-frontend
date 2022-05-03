@@ -23,6 +23,9 @@ import { API_PATH, useAuth } from "../../common";
 const Page: NextPage = () => {
   useAuth("ALL");
   const [showAlert, setShowAlert] = useState(false);
+  const [error, setError] = useState(
+    "An error occurred, please try again later"
+  );
 
   return (
     <Container maxW={"90%"} maxH={"100%"} background={"white"}>
@@ -30,7 +33,7 @@ const Page: NextPage = () => {
         {showAlert && (
           <Alert status="error" variant="subtle">
             <AlertIcon />
-            An error occurred, please try again later
+            {error}
             <CloseButton
               position="absolute"
               right="8px"
@@ -61,6 +64,7 @@ const Page: NextPage = () => {
                 if (value.success) {
                   window.location.href = `/students/interests/${value.student_id}`;
                 } else {
+                  setError(value.error);
                   window.scrollTo(0, 0);
                   setShowAlert(true);
                 }
