@@ -112,7 +112,7 @@ const Page: NextPage = () => {
             .then((response) => response.json())
             .then((value) => {
               console.log(value);
-              window.location.href = `/manage/${id}`;
+              window.location.reload();
             });
         }}
       >
