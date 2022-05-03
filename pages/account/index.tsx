@@ -33,7 +33,7 @@ const Page: NextPage = () => {
   };
 
   return (
-    <Container>
+    <Container maxW={"90%"} maxH={"100%"} background={"white"}>
       <Box>
         <Heading size="l">Account settings</Heading>
       </Box>

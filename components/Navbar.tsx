@@ -31,7 +31,12 @@ export const Navbar = () => {
   }, [removeCookie]);
 
   return (
-    <Flex as="nav" align="center">
+    <Flex
+      as="nav"
+      align="center"
+      borderBottom={"1px solid lightgrey"}
+      borderRadius={"20px"}
+    >
       <Box>
         <ImageWrapper>
           <Image

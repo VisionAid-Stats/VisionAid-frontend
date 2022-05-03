@@ -26,7 +26,7 @@ const Page: NextPage = () => {
   const [showAlert, setShowAlert] = useState(false);
 
   return (
-    <Container>
+    <Container maxW={"90%"} maxH={"100%"} background={"white"}>
       <Stack>
         {showAlert && (
           <Alert status="success" variant="subtle">

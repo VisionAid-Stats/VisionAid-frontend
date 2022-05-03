@@ -16,14 +16,9 @@ import {
   FormControl,
   FormLabel,
   Input,
-  NumberDecrementStepper,
-  NumberIncrementStepper,
-  NumberInput,
-  NumberInputField,
-  NumberInputStepper,
 } from "@chakra-ui/react";
 
-import { BasicInput, SelectInput } from "../../../components";
+import { BasicInput, SelectInput, NumberInput } from "../../../components";
 import { API_PATH, useAuth } from "../../../common";
 
 const courseListTransformer = (courses) => {
@@ -108,7 +103,7 @@ const Page: NextPage = () => {
   }, []);
 
   return (
-    <Container>
+    <Container maxW={"90%"} maxH={"100%"} background={"white"}>
       <Stack>
         {showAlert && (
           <Alert status="success" variant="subtle">
@@ -204,26 +199,12 @@ const Page: NextPage = () => {
 
                 <BasicInput id="duration" label="Duration" isRequired />
 
-                <Field name="max_students">
-                  {({ field }) => (
-                    <FormControl isRequired>
-                      <FormLabel htmlFor="max_students">Max Students</FormLabel>
-                      <NumberInput
-                        step={1}
-                        id="max_students"
-                        width={100}
-                        min={0}
-                        clampValueOnBlur
-                      >
-                        <NumberInputField {...field} />
-                        <NumberInputStepper>
-                          <NumberIncrementStepper />
-                          <NumberDecrementStepper />
-                        </NumberInputStepper>
-                      </NumberInput>
-                    </FormControl>
-                  )}
-                </Field>
+                <NumberInput
+                  id="max_students"
+                  label="Max Students"
+                  isRequired
+                  min={1}
+                />
 
                 <Button mt={4} colorScheme="teal" type="submit">
                   Submit

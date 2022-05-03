@@ -7,21 +7,17 @@ import {
   VStack,
   Spacer,
   Heading,
-  NumberInput,
-  NumberInputField,
-  NumberInputStepper,
-  NumberIncrementStepper,
-  NumberDecrementStepper,
   Container,
   FormControl,
   FormLabel,
   Alert,
   AlertIcon,
   CloseButton,
+  Textarea,
 } from "@chakra-ui/react";
 import { Field, Form, Formik } from "formik";
 
-import { BasicInput, SelectInput } from "../../components";
+import { BasicInput, SelectInput, NumberInput } from "../../components";
 import { API_PATH, useAuth } from "../../common";
 
 const Page: NextPage = () => {
@@ -29,7 +25,7 @@ const Page: NextPage = () => {
   const [showAlert, setShowAlert] = useState(false);
 
   return (
-    <Container>
+    <Container maxW={"90%"} maxH={"100%"} background={"white"}>
       <Stack>
         {showAlert && (
           <Alert status="error" variant="subtle">
@@ -71,7 +67,7 @@ const Page: NextPage = () => {
               });
           }}
         >
-          {({ setFieldValue }) => (
+          {({ setFieldValue, values }) => (
             <Form>
               <VStack spacing={10} align="flex-start">
                 <BasicInput id="email" label="Email" isRequired />
@@ -101,26 +97,7 @@ const Page: NextPage = () => {
                   ]}
                 />
 
-                <Field name="age">
-                  {({ field }) => (
-                    <FormControl isRequired>
-                      <FormLabel htmlFor="age">Age</FormLabel>
-                      <NumberInput
-                        step={1}
-                        id="age"
-                        width={100}
-                        min={0}
-                        clampValueOnBlur
-                      >
-                        <NumberInputField {...field} />
-                        <NumberInputStepper>
-                          <NumberIncrementStepper />
-                          <NumberDecrementStepper />
-                        </NumberInputStepper>
-                      </NumberInput>
-                    </FormControl>
-                  )}
-                </Field>
+                <NumberInput id="age" label="Age" isRequired min={1} />
 
                 <BasicInput
                   id="address"
@@ -128,53 +105,77 @@ const Page: NextPage = () => {
                   isRequired
                 />
 
-                <BasicInput
-                  id="learning_objectives"
-                  label="What are your long term learning objectives?"
-                  isRequired={false}
-                />
-
-                <BasicInput
-                  id="visual_impairment"
-                  label="Provide a brief history of your vision impairment"
-                  isRequired
-                />
-
-                <BasicInput
-                  id="usable_vision"
-                  label="What is your usable vision in terms of acuity and field?"
-                  isRequired={false}
-                />
-
-                <Field name="pct_vision_loss">
+                <Field name="learning_objectives">
                   {({ field }) => (
-                    <FormControl isRequired>
-                      <FormLabel htmlFor="pct_vision_loss">
-                        What is the percentage of vision loss?
+                    <FormControl>
+                      <FormLabel htmlFor="learning_objectives">
+                        What are your long term learning objectives?
                       </FormLabel>
-                      <NumberInput
-                        step={10}
-                        id="pct_vision_loss"
-                        width={100}
-                        min={0}
-                        max={100}
-                        clampValueOnBlur
-                      >
-                        <NumberInputField {...field} />
-                        <NumberInputStepper>
-                          <NumberIncrementStepper />
-                          <NumberDecrementStepper />
-                        </NumberInputStepper>
-                      </NumberInput>
+                      <Textarea
+                        onChange={(e) => {
+                          setFieldValue("learning_objectives", e.target.value);
+                        }}
+                        {...field}
+                      />
                     </FormControl>
                   )}
                 </Field>
 
-                <BasicInput
-                  id="hear_about"
-                  label="How did you hear about the program?"
+                <Field name="visual_impairment">
+                  {({ field }) => (
+                    <FormControl isRequired>
+                      <FormLabel htmlFor="visual_impairment">
+                        Provide a brief history of your vision impairment
+                      </FormLabel>
+                      <Textarea
+                        onChange={(e) => {
+                          setFieldValue("visual_impairment", e.target.value);
+                        }}
+                        {...field}
+                      />
+                    </FormControl>
+                  )}
+                </Field>
+
+                <Field name="usable_vision">
+                  {({ field }) => (
+                    <FormControl>
+                      <FormLabel htmlFor="usable_vision">
+                        What is your usable vision in terms of acuity and field?
+                      </FormLabel>
+                      <Textarea
+                        onChange={(e) => {
+                          setFieldValue("usable_vision", e.target.value);
+                        }}
+                        {...field}
+                      />
+                    </FormControl>
+                  )}
+                </Field>
+
+                <NumberInput
+                  id="pct_vision_loss"
+                  label="What is the percentage of vision loss?"
                   isRequired
+                  min={0}
+                  max={100}
                 />
+
+                <Field name="hear_about">
+                  {({ field }) => (
+                    <FormControl isRequired>
+                      <FormLabel htmlFor="hear_about">
+                        How did you hear about the program?
+                      </FormLabel>
+                      <Textarea
+                        onChange={(e) => {
+                          setFieldValue("hear_about", e.target.value);
+                        }}
+                        {...field}
+                      />
+                    </FormControl>
+                  )}
+                </Field>
 
                 <Button mt={4} colorScheme="teal" type="submit">
                   Submit

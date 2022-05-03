@@ -47,7 +47,7 @@ const Page: NextPage = () => {
   };
 
   return (
-    <Container>
+    <Container maxW={"90%"} maxH={"100%"} background={"white"}>
       <Box>
         <Heading size="l">Edit Centre Location for {data.location}</Heading>
       </Box>

@@ -12,6 +12,7 @@ import {
   FormControl,
   FormLabel,
   Heading,
+  Input,
   NumberDecrementStepper,
   NumberIncrementStepper,
   NumberInput,
@@ -44,7 +45,7 @@ const Page: NextPage = () => {
     }
   }, [id]);
   return (
-    <Container>
+    <Container maxW={"90%"} maxH={"100%"} background={"white"}>
       {showAlert && (
         <Alert status="error" variant="subtle">
           <AlertIcon />
@@ -116,27 +117,22 @@ const Page: NextPage = () => {
                   },
                 ]}
               />
-              <Field name="age">
-                {({ field }) => (
-                  <FormControl isRequired={false}>
-                    <FormLabel htmlFor="age">Age</FormLabel>
-                    <NumberInput
-                      step={1}
-                      id="age"
-                      width={100}
-                      min={0}
-                      clampValueOnBlur
-                      value={values.age}
-                    >
-                      <NumberInputField {...field} />
-                      <NumberInputStepper>
-                        <NumberIncrementStepper />
-                        <NumberDecrementStepper />
-                      </NumberInputStepper>
-                    </NumberInput>
-                  </FormControl>
-                )}
-              </Field>
+              <Box>
+                <Field name="age">
+                  {({ field }) => (
+                    <FormControl isRequired={false}>
+                      <FormLabel htmlFor="age">Age</FormLabel>
+                      <Input
+                        id="age"
+                        {...field}
+                        type="number"
+                        min={1}
+                        value={values.age}
+                      />
+                    </FormControl>
+                  )}
+                </Field>
+              </Box>
               <BasicInput
                 id="address"
                 label="What city and state are you from?"

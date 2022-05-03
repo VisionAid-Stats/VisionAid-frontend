@@ -26,7 +26,7 @@ const Page: NextPage = () => {
       .then((json) => setData(json));
   }, []);
   return (
-    <Container>
+    <Container maxW={"90%"} maxH={"100%"} background={"white"}>
       <Box>
         <Heading size="l">List of courses</Heading>
       </Box>

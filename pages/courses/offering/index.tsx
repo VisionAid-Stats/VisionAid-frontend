@@ -27,7 +27,7 @@ const Page: NextPage = () => {
   }, []);
 
   return (
-    <Container centerContent>
+    <Container maxW={"90%"} maxH={"100%"} background={"white"}>
       <Box>
         <Heading size="l">List of course batches</Heading>
       </Box>

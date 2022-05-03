@@ -41,7 +41,7 @@ const Page: NextPage = () => {
   );
 
   return (
-    <Container>
+    <Container maxW={"90%"} maxH={"100%"} background={"white"}>
       <Stack>
         {showAlert && (
           <Alert status="error" variant="subtle">

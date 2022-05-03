@@ -50,7 +50,7 @@ const Page: NextPage = () => {
     is_online: data.is_online === 1,
   };
   return (
-    <Container>
+    <Container maxW={"90%"} maxH={"100%"} background={"white"}>
       <Box>
         <Heading size="l">Edit Course {data.code}</Heading>
       </Box>

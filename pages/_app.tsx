@@ -10,12 +10,18 @@ const Root = styled.div`
   height: 100vh;
 `;
 
+const Body = styled.div`
+  margin-top: 3%;
+`;
+
 function App({ Component, pageProps }: AppProps) {
   return (
     <ChakraProvider>
       <Root>
         <Navbar />
-        <Component {...pageProps} />
+        <Body>
+          <Component {...pageProps} />
+        </Body>
       </Root>
     </ChakraProvider>
   );

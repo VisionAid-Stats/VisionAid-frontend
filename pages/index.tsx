@@ -6,25 +6,23 @@ import { useAuth } from "../common";
 const Page: NextPage = () => {
   useAuth("ALL");
   return (
-    <Stack alignItems={"center"}>
-      <Container>
-        <Stack>
-          <Text fontSize="xx-large">About us</Text>
-          <Text fontSize="medium">
-            Vision-Aid Academy is a nonprofit organization that specializes in
-            helping people with visual impairments through offering courses that
-            are taught with an emphasis on accessibility.
-          </Text>
-        </Stack>
-      </Container>
-      <Spacer />
-      <Image
-        src="landing.png"
-        alt="Vision-Aid serves the visually disadvantaged in under-served areas."
-        width={1280}
-        height={720}
-      />
-    </Stack>
+    <Container maxW={"90%"} maxH={"100%"} background={"white"}>
+      <Stack alignItems={"center"}>
+        <Text fontSize="xx-large">About us</Text>
+        <Text fontSize="medium">
+          Vision-Aid Academy is a nonprofit organization that specializes in
+          helping people with visual impairments through offering courses that
+          are taught with an emphasis on accessibility.
+        </Text>
+        <Spacer />
+        <Image
+          src="landing.png"
+          alt="Vision-Aid serves the visually disadvantaged in under-served areas."
+          width={1280}
+          height={720}
+        />
+      </Stack>
+    </Container>
   );
 };
 

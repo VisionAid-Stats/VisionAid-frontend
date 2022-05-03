@@ -30,7 +30,7 @@ const Page: NextPage = () => {
     }
   }, [id]);
   return (
-    <Container>
+    <Container maxW={"90%"} maxH={"100%"} background={"white"}>
       <Box>
         <HStack>
           <Heading size="l">Details for {data.name}</Heading>
