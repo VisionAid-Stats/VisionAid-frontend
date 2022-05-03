@@ -37,6 +37,8 @@ const Page: NextPage = () => {
             <Th>Trainer Name</Th>
             <Th>Email</Th>
             <Th>Location</Th>
+            <Th>State</Th>
+            <Th>Qualifications</Th>
             <Th>Edit</Th>
           </Tr>
         </Thead>
@@ -47,6 +49,8 @@ const Page: NextPage = () => {
                 <Td>{trainer.name}</Td>
                 <Td>{trainer.email}</Td>
                 <Td>{trainer.location || "?"}</Td>
+                <Td>{trainer.state}</Td>
+                <Td>{trainer.qualifications}</Td>
                 <Td>
                   <ImageLinkWrapper>
                     <EditIcon

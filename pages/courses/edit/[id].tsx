@@ -33,8 +33,8 @@ const Page: NextPage = () => {
   }, [id]);
 
   const deleteCourse = () => {
-    fetch(`${API_PATH}/course/delete?course_id=${id}`, {
-      method: "DELETE",
+    fetch(`${API_PATH}/course/disable?course_id=${id}`, {
+      method: "PUT",
     })
       .then((response) => response.json())
       .then((json) => {
@@ -108,7 +108,7 @@ const Page: NextPage = () => {
                     Submit
                   </Button>
                   <Button mt={4} colorScheme="red" onClick={deleteCourse}>
-                    Delete
+                    Disable
                   </Button>
                 </HStack>
                 <Spacer />

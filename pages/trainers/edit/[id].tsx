@@ -6,23 +6,34 @@ import {
   Box,
   Button,
   Container,
+  FormControl,
+  FormLabel,
   Heading,
   HStack,
   Spacer,
   Stack,
+  Textarea,
   VStack,
 } from "@chakra-ui/react";
 
 import { API_PATH, useAuth } from "../../../common";
-import { Formik, Form } from "formik";
-import { BasicInput } from "../../../components";
+import { Formik, Form, Field } from "formik";
+import { BasicInput, SelectInput } from "../../../components";
+
+const statesTransformer = (statesData) => {
+  return statesData.map((state) => ({
+    value: state.value,
+    label: state.value,
+  }));
+};
 
 const Page: NextPage = () => {
   useAuth("ADMIN");
   const router = useRouter();
   const { id } = router.query;
-
+  const [statesData, setStatesData] = useState();
   const [data, setData] = useState<any>({});
+
   useEffect(() => {
     if (id !== undefined) {
       fetch(`${API_PATH}/trainer/get_by_id?trainer_id=${id}`)
@@ -31,9 +42,17 @@ const Page: NextPage = () => {
     }
   }, [id]);
 
+  useEffect(() => {
+    fetch(`${API_PATH}/trainer/states`, { method: "GET" })
+      .then((response) => response.json())
+      .then((data) => {
+        setStatesData(statesTransformer(data));
+      });
+  }, []);
+
   const deleteTrainer = () => {
-    fetch(`${API_PATH}/trainer/delete?trainer_id=${id}`, {
-      method: "DELETE",
+    fetch(`${API_PATH}/trainer/disable?trainer_id=${id}`, {
+      method: "PUT",
     })
       .then((response) => response.json())
       .then((json) => {
@@ -46,6 +65,8 @@ const Page: NextPage = () => {
     name: data.name,
     email: data.email,
     location: data.location,
+    state: data.state,
+    qualifications: data.qualifications,
   };
 
   return (
@@ -75,13 +96,36 @@ const Page: NextPage = () => {
                 <BasicInput id="name" label="Name" isRequired />
                 <BasicInput id="email" label="Email" isRequired />
                 <BasicInput id="location" label="Location" />
+                <SelectInput
+                  id="state"
+                  label="State"
+                  placeholder="Select state..."
+                  isRequired={false}
+                  options={statesData}
+                />
+
+                <Field name="qualifications">
+                  {({ field }) => (
+                    <FormControl isRequired={false}>
+                      <FormLabel htmlFor="qualifications">
+                        Qualifications
+                      </FormLabel>
+                      <Textarea
+                        onChange={(e) => {
+                          setFieldValue("qualifications", e.target.value);
+                        }}
+                        {...field}
+                      />
+                    </FormControl>
+                  )}
+                </Field>
 
                 <HStack align="baseline">
                   <Button mt={4} colorScheme="teal" type="submit">
                     Submit
                   </Button>
                   <Button mt={4} colorScheme="red" onClick={deleteTrainer}>
-                    Delete
+                    Disable
                   </Button>
                 </HStack>
                 <Spacer />
