@@ -50,7 +50,6 @@ const Page: NextPage = () => {
             return (
               <Tr key={index}>
                 <Td>{course_offering.batch}</Td>
-                <Td>{course_offering.batch_num}</Td>
                 <Td>{course_offering.centre_location}</Td>
                 <Td>{course_offering.course_code}</Td>
                 <Td>{course_offering.course_name}</Td>

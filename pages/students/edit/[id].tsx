@@ -97,6 +97,11 @@ const Page: NextPage = () => {
                 isRequired={false}
               />
               <BasicInput id="whatsapp" label="What's App" isRequired={false} />
+              <BasicInput
+                id="sharepoint_url"
+                label="Sharepoint URL"
+                isRequired={false}
+              />
               <SelectInput
                 id="gender"
                 label="Gender"

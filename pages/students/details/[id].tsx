@@ -76,6 +76,14 @@ const Page: NextPage = () => {
             <Td>{data.whatsapp}</Td>
           </Tr>
           <Tr>
+            <Td>Sharepoint URL</Td>
+            <Td>
+              <a href={data.sharepoint_url} target="_blank">
+                {data.sharepoint_url}
+              </a>
+            </Td>
+          </Tr>
+          <Tr>
             <Td>Address</Td>
             <Td>{data.address}</Td>
           </Tr>

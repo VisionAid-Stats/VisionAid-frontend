@@ -99,6 +99,7 @@ const Page: NextPage = () => {
         enableReinitialize
         initialValues={checklistData}
         onSubmit={(values) => {
+          const { checklist_id, ...rest } = values;
           const response = fetch(
             `${API_PATH}/course_offering/update_checklist`,
             {
@@ -106,7 +107,7 @@ const Page: NextPage = () => {
               headers: {
                 "Content-Type": "application/json",
               },
-              body: JSON.stringify(values),
+              body: JSON.stringify(rest),
             }
           )
             .then((response) => response.json())

@@ -12,7 +12,7 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react";
-import { InfoIcon } from "@chakra-ui/icons";
+import { InfoIcon, LinkIcon } from "@chakra-ui/icons";
 
 import { API_PATH, useAuth } from "../../common";
 import { ImageLinkWrapper } from "../../components";
@@ -37,6 +37,7 @@ const Page: NextPage = () => {
             <Th>Student ID</Th>
             <Th>Student Name</Th>
             <Th>Email</Th>
+            <Th>Sharepoint</Th>
             <Th>More details</Th>
           </Tr>
         </Thead>
@@ -47,6 +48,15 @@ const Page: NextPage = () => {
                 <Td>{student.student_id}</Td>
                 <Td>{student.name}</Td>
                 <Td>{student.email}</Td>
+                <Td>
+                  {student.sharepoint_url && (
+                    <ImageLinkWrapper>
+                      <a href={student.sharepoint_url} target="_blank">
+                        <LinkIcon />
+                      </a>
+                    </ImageLinkWrapper>
+                  )}
+                </Td>
                 <Td>
                   <ImageLinkWrapper>
                     <InfoIcon
