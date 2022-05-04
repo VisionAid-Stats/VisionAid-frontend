@@ -123,6 +123,27 @@ export const Navbar = () => {
                 )}
               </MenuList>
             </Menu>
+            <Menu autoSelect={false}>
+              <MenuButton as={Button} variant="ghost">
+                Reports
+              </MenuButton>
+              <MenuList>
+                <MenuItem
+                  onClick={() => {
+                    window.location.href = "/reports/student";
+                  }}
+                >
+                  Student Enrollment
+                </MenuItem>
+                <MenuItem
+                  onClick={() => {
+                    window.location.href = "/reports/interests";
+                  }}
+                >
+                  Course Interests
+                </MenuItem>
+              </MenuList>
+            </Menu>
           </Fragment>
         )}
       </Box>
