@@ -51,36 +51,30 @@ const Page: NextPage = () => {
 
   console.log(checklistData);
 
-  const checklistRow = (name, date, setFieldValue) => {
+  const checklistRow = (name, item) => {
     return (
       <Tr>
+        <Td>{name}</Td>
         <Td>
-          <Checkbox
-            name={name + "_completion"}
-            isChecked={date}
-            onChange={(e) => {
-              if (e.target.checked) {
-                const today = new Date();
-                setFieldValue(
-                  name + "_completion",
-                  today.toISOString().split("T")[0]
-                );
-              } else {
-                setFieldValue(name + "_completion", null);
-              }
-            }}
-          />
-        </Td>
-        <Td>
-          <Field name={name + "_remarks"}>
+          <Field name={item + "_remarks"}>
             {({ field }) => (
               <FormControl isRequired={false}>
-                <Input id={name + "_remarks"} {...field} />
+                <Input id={item + "_remarks"} {...field} />
               </FormControl>
             )}
           </Field>
         </Td>
-        <Td>{date ? date : "N/A"}</Td>
+        <Td>
+          <Box>
+            <Field name={item + "_completion"}>
+              {({ field }) => (
+                <FormControl isRequired={false}>
+                  <Input id={item + "_completion"} {...field} type="date" />
+                </FormControl>
+              )}
+            </Field>
+          </Box>
+        </Td>
       </Tr>
     );
   };
@@ -89,7 +83,7 @@ const Page: NextPage = () => {
     <Container maxW={"90%"} maxH={"100%"} background={"white"}>
       <Box>
         <Heading size="l">
-          Checklist{" "}
+          Pre-Training Checklist{" "}
           {courseOffering.length !== 0
             ? `for ${courseOffering[0].course_name}`
             : ""}
@@ -123,85 +117,55 @@ const Page: NextPage = () => {
               <Thead>
                 <Tr>
                   <Th>Completed</Th>
-                  <Th>Item</Th>
+                  <Th>Remarks</Th>
                   <Th>Completion Date</Th>
                 </Tr>
               </Thead>
               <Tbody>
                 {checklistRow(
-                  "item_1",
-                  values?.item_1_completion,
-                  setFieldValue
+                  "Item 1 - Training Program Announcement",
+                  "item_1"
                 )}
                 {checklistRow(
-                  "item_2",
-                  values?.item_2_completion,
-                  setFieldValue
+                  "Item 2 - Trainer / PM / TA Identified",
+                  "item_2"
+                )}
+                {checklistRow("Item 3 - First Level Screening", "item_3")}
+                {checklistRow(
+                  "Item 4 - Second Level Screening (If Required)",
+                  "item_4"
                 )}
                 {checklistRow(
-                  "item_3",
-                  values?.item_3_completion,
-                  setFieldValue
+                  "Item 5 - Finalize the List of Students Admitted",
+                  "item_5"
                 )}
                 {checklistRow(
-                  "item_4",
-                  values?.item_4_completion,
-                  setFieldValue
+                  "Item 6 - Student Intimation on Admission",
+                  "item_6"
                 )}
                 {checklistRow(
-                  "item_5",
-                  values?.item_5_completion,
-                  setFieldValue
+                  "Item 7 - Collect all necessary documents",
+                  "item_7"
                 )}
                 {checklistRow(
-                  "item_6",
-                  values?.item_6_completion,
-                  setFieldValue
+                  "Item 8 - Collect Security Deposit from Students",
+                  "item_8"
                 )}
                 {checklistRow(
-                  "item_7",
-                  values?.item_7_completion,
-                  setFieldValue
+                  "Item 9 - Regret Intimation Communicated to the applicants not selected",
+                  "item_9"
                 )}
                 {checklistRow(
-                  "item_8",
-                  values?.item_8_completion,
-                  setFieldValue
+                  "Item 10 - Student details added to the DB",
+                  "item_10"
                 )}
                 {checklistRow(
-                  "item_9",
-                  values?.item_9_completion,
-                  setFieldValue
+                  "Item 11 - Create a folder on SharePoint Central Repository for the program",
+                  "item_11"
                 )}
                 {checklistRow(
-                  "item_10",
-                  values?.item_10_completion,
-                  setFieldValue
-                )}
-                {checklistRow(
-                  "item_11",
-                  values?.item_11_completion,
-                  setFieldValue
-                )}
-                {checklistRow(
-                  "item_12",
-                  values?.item_12_completion,
-                  setFieldValue
-                )}
-                {checklistRow(
-                  "item_13",
-                  values?.item_13_completion,
-                  setFieldValue
-                )}
-                {checklistRow(
-                  "item_14",
-                  values?.item_14_completion,
-                  setFieldValue
-                )}
-                {checklistRow(
-                  "item_15",
-                  values?.item_15_completion,
-                  setFieldValue
+                  "Item 12 - Create a WhatsApp group with students",
+                  "item_12"
                 )}
               </Tbody>
             </Table>

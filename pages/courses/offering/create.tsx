@@ -19,7 +19,7 @@ import {
 } from "@chakra-ui/react";
 
 import { BasicInput, SelectInput, NumberInput } from "../../../components";
-import { API_PATH, useAuth } from "../../../common";
+import { API_PATH, useAuth, useSession } from "../../../common";
 
 const courseListTransformer = (courses) => {
   if (!!courses) {
@@ -71,6 +71,7 @@ const centreListTransformer = (centres) => {
 
 const Page: NextPage = () => {
   useAuth("PM");
+  const { userId } = useSession();
   const [showAlert, setShowAlert] = useState(false);
 
   const [courseList, setCourseList] = useState();
@@ -124,7 +125,7 @@ const Page: NextPage = () => {
         </Box>
         <Spacer />
         <Formik
-          initialValues={{}}
+          initialValues={{ pm_user_id: userId }}
           onSubmit={(values) => {
             const response = fetch(`${API_PATH}/course_offering/create`, {
               method: "POST",
