@@ -31,7 +31,7 @@ const Page: NextPage = () => {
     fetch(`${API_PATH}/course_offering/get_by_pm?pm_user_id=${userId}`)
       .then((response) => response.json())
       .then((json) => setData(json));
-  }, []);
+  }, [userId]);
   return (
     <Container maxW={"90%"} maxH={"100%"} background={"white"}>
       <Box>

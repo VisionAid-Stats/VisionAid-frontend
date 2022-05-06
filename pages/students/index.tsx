@@ -51,7 +51,11 @@ const Page: NextPage = () => {
                 <Td>
                   {student.sharepoint_url && (
                     <ImageLinkWrapper>
-                      <a href={student.sharepoint_url} target="_blank">
+                      <a
+                        href={student.sharepoint_url}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
                         <LinkIcon />
                       </a>
                     </ImageLinkWrapper>

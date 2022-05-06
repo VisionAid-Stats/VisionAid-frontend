@@ -78,7 +78,7 @@ const Page: NextPage = () => {
           <Tr>
             <Td>Sharepoint URL</Td>
             <Td>
-              <a href={data.sharepoint_url} target="_blank">
+              <a href={data.sharepoint_url} target="_blank" rel="noreferrer">
                 {data.sharepoint_url}
               </a>
             </Td>
