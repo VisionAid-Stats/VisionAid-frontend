@@ -199,6 +199,12 @@ const Page: NextPage = () => {
 
                 <BasicInput id="duration" label="Duration" isRequired />
 
+                <BasicInput
+                  id="teaching_assistants"
+                  label="Teaching Assistants"
+                  isRequired={false}
+                />
+
                 <NumberInput
                   id="max_students"
                   label="Max Students"

@@ -181,6 +181,12 @@ const Page: NextPage = () => {
                   options={centreList}
                 />
 
+                <BasicInput
+                  id="teaching_assistants"
+                  label="Teaching Assistants"
+                  isRequired={false}
+                />
+
                 <HStack align="baseline">
                   <Button mt={4} colorScheme="teal" type="submit">
                     Submit
