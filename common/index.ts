@@ -3,7 +3,7 @@ import jwtDecode from "jwt-decode";
 import { useEffect } from "react";
 
 export const TOKEN_NAME = "vision_aid_session";
-export const API_PATH = "localhost:8443";
+export const API_PATH = "https://v1.visionaid-stats.com:8443";
 export const LANGUAGE_LIST = [
   {
     value: "Assamese",
