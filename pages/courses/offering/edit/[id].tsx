@@ -134,6 +134,7 @@ const Page: NextPage = () => {
             trainer_id: data.trainer_id,
             pm_user_id: data.pm_user_id,
             centre_id: data.centre_id,
+            teaching_assistants: data.teaching_assistants,
           }}
           onSubmit={(values) => {
             const response = fetch(`${API_PATH}/course_offering/update`, {
