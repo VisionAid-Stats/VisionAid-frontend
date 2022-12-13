@@ -244,13 +244,13 @@ export const Navbar = () => {
               >
                 Log In
               </MenuItem>
-              <MenuItem
+              {/* <MenuItem
                 onClick={() => {
                   window.location.href = "/signup";
                 }}
               >
                 Sign Up
-              </MenuItem>
+              </MenuItem> */}
             </MenuList>
           </Menu>
         )}
